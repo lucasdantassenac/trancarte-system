@@ -4,12 +4,12 @@
                     <h2 class='h2'>Cadastrar arquiteto</h2>
                     <span class='closePopUpBtn'>X</span>
                 </div>    
-                <form class='formPopUp' id='addArchitectForm' method='post' action='<?php echo $url;?>admin/includes/controller/addArchitect.php'>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="50000"  class='c25'/>
+                <form enctype="multipart/form-data" class='formPopUp' id='addArchitectForm' method='post' action='<?php echo $url;?>admin/includes/controller/addArchitect.php'>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="1000000"  class='c25'/>
                     
                     <div class='inputDiv c100'>
                         <label for='photo'>Foto</label>
-                        <input type='file' name='photo' id='photo'>
+                        <input type='file' accept='image/png, image/jpeg, image/jpg' name='photo' id='photo'>
                     </div>
                     
                     <div class='inputDiv c50'>

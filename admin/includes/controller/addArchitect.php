@@ -5,19 +5,22 @@ ini_set('session.cookie_lifetime', 3600);
 session_start();
 
 $codigo = $_SESSION["codigo"];
-
+if(!isset($codigo)){
+    header($url."?error=not-logged-in");
+}
+echo strval($codigo);
+print_r($_FILES);
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    print_r( $_FILES);
     //verifica se o arquivo de imagem foi enviado sem erros
     if (isset($_FILES['photo'])) {
         
         // Diretório onde as imagens serão armazenadas
-        $target_dir = "../../../files/architect-images/";
-        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        $target_dir = $url."files/architect-images/";
+        $target_file = $target_dir . strval($codigo) . "_" . basename($_FILES["photo"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        $check = getimagesize($_FILES["photo"]["tmp_name"]);
         if($check !== false) {
             echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
@@ -25,19 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "File is not an image.";
             $uploadOk = 0;
         }
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
-            $uploadOk = 0;
-        }
 
         // Check file size
-        if ($_FILES["fileToUpload"]["size"] > 500000) {
+        if ($_FILES["photo"]["size"] > 1000000) {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
+            echo "Sorry, only JPG, JPEG, PNG files are allowed.";
             $uploadOk = 0;
         }
 
@@ -46,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
         } else {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
+                echo "The file ". htmlspecialchars( basename( $_FILES["photo"]["name"])). " has been uploaded.";
             } else {
                 echo "Sorry, there was an error uploading your file.";
             }
@@ -59,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $senha = md5($_POST['password']);
     $dataCadastro = date('Y-m-d H:m:s'); 
-    $fotoUrl = isset($fileName) ? $uploadDir . $fileName : $uploadDir.'logo.png';
+    $fotoUrl = isset($target_file) ? $target_dir . $target_file : $target_dir.'logo.png';
     $cpfCnpj = $_POST['cpf'];
     $rg = $_POST['rg'];
     $pis = $_POST['pis'];
@@ -69,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailPremium = $_POST['email-premium'];
     $endereco = $_POST['adress'];
     $dadosBancarios = $_POST['bank'];
-
+    echo $fotoUrl;
 
     require "../../../includes/conexao.php";
  
