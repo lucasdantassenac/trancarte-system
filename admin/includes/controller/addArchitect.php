@@ -11,22 +11,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     print_r( $_FILES);
     //verifica se o arquivo de imagem foi enviado sem erros
     if (isset($_FILES['photo'])) {
+        
         // Diretório onde as imagens serão armazenadas
-        $uploadDir = "../../../files/architect-images/";
-        echo 'oi';
-        // Obter informações sobre o arquivo de imagem
-        $fileName = $_FILES['photo']['name'];
-        $fileTmpName = $_FILES['photo']['tmp_name'];
-
-        // Verifica se o arquivo de imagem já existe
-        if (file_exists($uploadDir . $fileName)) {
-            // Gera um novo nome de arquivo com um número aleatório
-            $extension = pathinfo($fileName, PATHINFO_EXTENSION);
-            $fileName = pathinfo($fileName, PATHINFO_FILENAME) . '_' . uniqid() . '.' . $extension;
+        $target_dir = "../../../files/architect-images/";
+        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
         }
 
-        // Move o arquivo de imagem para o diretório de upload
-        move_uploaded_file($fileTmpName, $uploadDir . $fileName);
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }   
     }
     
     // Dados do formulário
@@ -44,6 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailPremium = $_POST['email-premium'];
     $endereco = $_POST['adress'];
     $dadosBancarios = $_POST['bank'];
+
+
     require "../../../includes/conexao.php";
  
     // Verifica se ocorreu um erro na conexão
