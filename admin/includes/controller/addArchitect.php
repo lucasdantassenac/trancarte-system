@@ -8,8 +8,6 @@ $codigo = $_SESSION["codigo"];
 if(!isset($codigo)){
     header($url."?error=not-logged-in");
 }
-echo strval($codigo);
-print_r($_FILES);
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //verifica se o arquivo de imagem foi enviado sem erros
@@ -22,32 +20,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
-            echo "File is not an image.";
+            header("location: ../../home.php?error=error_not_image");
             $uploadOk = 0;
         }
 
         // Check file size
         if ($_FILES["photo"]["size"] > 1000000) {
-            echo "Sorry, your file is too large.";
+            header("location: ../../home.php?error=error_image_size");
             $uploadOk = 0;
         }
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
-            echo "Sorry, only JPG, JPEG, PNG files are allowed.";
+            
             $uploadOk = 0;
+            header("location: ../../home.php?error=error_image_filetype");
+
         }
 
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
+            header("location: ../../home.php?error=error_on_upload_image");
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
                 echo "The file ". htmlspecialchars( basename( $_FILES["photo"]["name"])). " has been uploaded.";
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                header("location: ../../home.php?error=error_on_image");
             }
         }   
     }
@@ -57,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $senha = md5($_POST['password']);
     $dataCadastro = date('Y-m-d H:m:s'); 
-    $fotoUrl = isset($target_file) ? $target_dir . $target_file : $target_dir.'logo.png';
+    $fotoUrl = isset($target_file) ? $target_file : $target_dir.'logo.png';
     $cpfCnpj = $_POST['cpf'];
     $rg = $_POST['rg'];
     $pis = $_POST['pis'];
@@ -67,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailPremium = $_POST['email-premium'];
     $endereco = $_POST['adress'];
     $dadosBancarios = $_POST['bank'];
-    echo $fotoUrl;
 
     require "../../../includes/conexao.php";
  
@@ -75,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($mysqli->connect_error) {
         die('Erro na conexão com o banco de dados: ' . $mysqli->connect_error);
     }
-/*
+
     // Prepara a consulta SQL
     $stmt = $mysqli->prepare('INSERT INTO arquitetos (arquiteto, email, senha, dataCadastro, fotoUrl, cpfCnpj, rg, pis, nascimento,  filiacao, telefone, emailPremium, endereco, dadosBancarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
     $stmt->bind_param('ssssssssssssss', $arquiteto, $email, $senha, $dataCadastro, $fotoUrl, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios);
@@ -83,13 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Executa a consulta
     if ($stmt->execute()) {
         echo 'Arquiteto adicionado com sucesso!';
-        #header("location: ../../../home.php?architect=sucess");
+        header("location: ../../home.php?architect=sucess");
     } else {
-        #header("location: ../../../home.php?architect=error");
+        header("location: ../../home.php?architect=error");
 
     }
     // Fecha a conexão
     $stmt->close();
-    $mysqli->close();*/
+    $mysqli->close();
 }
 ?>
