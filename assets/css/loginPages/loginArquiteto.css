@@ -1,0 +1,15 @@
+
+.box-login{
+    width: 100%;
+    display:flex;
+    justify-content:center;
+}
+.box-login form{
+    display:flex;
+    flex-direction:column;
+    width:50%;
+}
+
+.box-login form input {
+    margin:0.5em 0;
+}

@@ -1,0 +1,38 @@
+body{
+    background-image: url("../../../img/fundo-inicio-trancarte.jpg");
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    color:#fff;
+
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    text-align:center; 
+    height:100vh;
+}
+.overlay{
+    position:absolute;
+    width:100vw;
+    height:100vh;
+    background-color:var(--brown); 
+    opacity:.8;
+    top:0;
+    z-index:-1;
+}
+#logo{
+    width:35%;
+    max-width:450px;
+}
+.acess-div{
+    margin-top:4.5em;
+    width:100%;
+    max-width:1024px;
+}
+
+h1{
+    margin-bottom:1em;
+}

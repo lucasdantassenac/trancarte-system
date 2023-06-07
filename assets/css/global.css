@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root{
+    --primary:#35312A;
+    --secondary:#EDECE8;
+    --text:#7A7A7A;
+    --accent:#515151;
+    --brown:#2A1B00;
+    --black:#1C1D1E;
+}
+*{
+    margin:0;
+    padding:0;
+    border:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Montserrat", sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow-x:hidden;
+}
+h1, h2, h3, h4, h5, h6, span, p, a, button, input, div{
+    font-weight:500;
+    font-family:"Montserrat", sans-serif;
+}
+p{
+    font-size:16px;
+    font-weight:400;
+}
+a{
+    text-decoration:none;
+    color:inherit;
+}
+section{
+    width:100%;
+}
+a:hover{
+    cursor:pointer;
+}
+li{
+    list-style:none;
+}
+input, .btn{
+    min-height:47px;
+    padding:6px 16px;
+    border-radius:4px;
+}
+
+.btn:hover{
+    cursor:pointer;
+}
+
+.h1{
+    font-size:50px;
+}
+.h2{
+    font-size:40px;
+}
+.h3{
+    font-size:36px;
+}
+.h4{
+    font-size:28px;
+    font-weight:600;
+}
+.h5{
+    font-size:24px;
+    font-weight:600;
+}
+
+
+/*library LD*/
+
+/*row and cols*/
+.row{
+    display:flex;
+}
+.col{
+    display:flex;
+    flex-direction:column;
+    padding:1em;
+}
+.colRight{
+    align-items:flex-end;
+}
+.colnp{
+    display:flex;
+    flex-direction:column;
+}
+.c16{
+    width:16.6%;
+}
+.c20{
+    width:20%;
+}
+.c25{
+    width:25%;
+}
+.c33{
+    width:33.33%;
+}
+.c40{
+    width:40%;
+}
+.c50{
+    width:50%;
+}
+.c60{
+    width:60%;
+}
+.c70{
+    width:70%;
+}
+.c75{
+    width:75%;
+}
+.c100{
+    width:100%;
+}
+
+/*structure*/
+.flexCenter{
+    display:flex;
+    justify-content:center;
+}
+.flexRight{
+    display:flex;
+    justify-content:right;
+}
+.hidden{
+    display:none;
+    visibility:hidden;
+}
+/*text styles and positions */
+.tl{
+    text-align:left;
+}
+.tc{
+    text-align:center;
+}
+
+.b{
+    font-weight:700;
+}
+.w{
+    color:#fff;
+}
+
+.scale-div:hover{
+    transform:scale(.9);
+    transition:.3s;
+}
+.pv{
+    padding-top:1em;
+    padding-bottom:1em;
+}
+.ph{
+    padding-left:1em;
+    padding-right:1em;
+}
+.limiter{
+    max-width:1280px;
+    width:100%;
+}
+main{
+    width:100%;
+}
+table{
+    border-collapse: collapse;
+}
+.banner{
+    height:30vh;
+    width:100vw;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    padding:0 2em;
+}

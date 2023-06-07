@@ -1,0 +1,26 @@
+
+.btn-area{
+    width:100%;
+    display:flex;
+    text-align:center;
+    justify-content: center;
+    align-items:center;
+
+}
+.btn{
+    background-color:unset;
+    border:1px solid #fff;
+    padding:0em 0.5em;
+    cursor:pointer;
+    margin:0 15px;
+    min-width:250px;
+
+    display:flex;
+    align-items:center;
+   
+}
+
+.btn:hover{
+    background-color:#fff;
+    color:var(--brown);
+}

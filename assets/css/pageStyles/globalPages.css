@@ -1,0 +1,189 @@
+main{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+section{
+    padding:0 1em;
+}
+h1{
+    position:relative;
+    z-index:4;
+}
+.z0{
+    z-index:0;
+}
+.z1{
+    z-index:1;
+}
+.z2{
+    z-index:2;
+}
+.overlay{
+    position:absolute;
+    width:100vw;
+    height:30vh;
+    left:0;
+    background-color:var(--brown); 
+    opacity:.8;
+    z-index:0;
+}
+table{
+    width:100%;
+    margin:2em 0;
+}
+.thead{
+    border-top:1px solid rgba(0,0,0, .2);
+}
+th{
+    padding:1em 0;
+    text-align:left;
+}
+td{
+    padding:1em 5px;
+}
+.tcontent{
+    border:1px solid rgba(0,0,0, .2);
+    margin:0.5em 0;
+}
+
+.spa{
+    display:flex;
+    justify-content:space-around;
+}
+.contentSection{
+    padding:2em 1em;
+}
+.fastMenu{
+    background-color:#fff;
+    padding:2em;
+    max-height:400px;
+}
+.fastMenu h3{
+    margin-bottom:2em;
+}
+.fastMenu li{
+    list-style:inside;
+}
+footer{
+    display:flex;
+    background-color: var(--primary);
+    color:#fff; 
+    padding:0 1em; 
+    min-height:300px;
+    align-items:center;
+    justify-content: center;
+    width:100%;
+}
+
+.logo_footer{
+    width:55%;
+}
+footer .about{
+    padding-right:4em;
+}
+footer h4, footer .logo_footer{
+    margin:2em 0 1em;
+    font-weight:700;
+}
+footer li{
+    margin:5px 0;
+}
+.copyright{
+    margin:50px 0 25px;
+    padding-top:25px;
+    border-top:1px solid #fff;
+    text-align:center;
+}
+
+.contentSection{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.seeMore{
+    background-color:var(--primary);
+    color:#fff;
+    max-width:125px;
+    padding:1em 15px;
+    text-align:center;
+}
+
+.pointsDiv{
+    position:absolute;
+
+    box-shadow: 5px 5px 5px rgba(0,0,0, .2);
+    background-color:#fff;
+    color:var(--primary);
+    width:280px;
+    max-width:280px;
+    padding:1em 2em;
+    margin-top:5%;
+    z-index:1;
+}
+
+.pointsText{
+    text-align:center;
+}
+
+.profilePhoto{
+    width:100%;
+    max-width:450px;
+}
+
+.flexBetween{
+    display:flex;
+    justify-content:space-between;
+}
+.popUpSection .overlay{
+    z-index:5;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    position:fixed;
+    background-color:#000;
+}
+
+.controllerBtnSection{
+    background-color:var(--secondary);
+    padding:2em 0;
+}
+
+.popUp{
+    z-index:7;
+    position:fixed;
+    background-color:#fff;
+    width:80%;
+    max-width:1080px;
+    height:97vh;
+    padding:2em;
+    top:2%;
+    background-color:var(--secondary);
+    overflow-y:scroll;
+}
+.popUp .h2{
+    margin-bottom:25px;
+}
+.formPopUp{
+    background-color:var(--secondary);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+}
+.formPopUp .inputDiv{
+    display:flex;
+    flex-direction:column;
+}
+.formPopUp .btnDiv{
+    align-items:center;
+}
+.formPopUp .inputDiv{
+    padding:0 1em;
+    margin:0.5em 0;
+}
+.closePopUpBtn{
+    font-size:24px;
+    cursor:pointer;
+}
