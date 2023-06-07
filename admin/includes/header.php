@@ -1,6 +1,12 @@
 <?php
-
-
+    $sqlPedido           = "SELECT pedidos.*, arquitetos.arquiteto FROM pedidos INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto ORDER BY dataCadastro DESC LIMIT 5;";
+    $sqlVendedor         = "SELECT * FROM vendedores ORDER BY vendedor LIMIT 10;";
+    $sqlArquiteto        = "SELECT * FROM arquitetos ORDER BY dataCadastro DESC LIMIT 10;";
+    $sqlAllArchitects    = "SELECT * FROM arquitetos ORDER BY arquiteto;";
+    $selectAllarchitects = mysqli_query($mysqli, $sqlAllArchitects);
+    $selecionaPedido     = mysqli_query($mysqli,$sqlPedido); 
+    $selecionaArquiteto  = mysqli_query($mysqli,$sqlArquiteto); 
+    $selecionaVendedor   = mysqli_query($mysqli,$sqlVendedor);
 ?>
 <body>
 <header>
