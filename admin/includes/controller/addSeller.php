@@ -12,23 +12,17 @@ if(!isset($codigo)){
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Dados do formulário
-    $arquiteto = $_POST['name'];
-    $email = $_POST['email'];
-    $senha = md5($_POST['password']);
-    $dataCadastro = date('Y-m-d H:m:s'); 
-    $fotoUrl = isset($target_file) ? $target_file : $target_dir.'logo.png';
+    $sellerName = $_POST['name'];
+    $user = $_POST['user'];
     $cpfCnpj = $_POST['cpf'];
     $rg = $_POST['rg'];
-    $pis = $_POST['pis'];
-    $nascimento = date('Y-m-d', strtotime($_POST['birthday'])); 
-    $filiacao = $_POST['filiation'];
-    $telefone = $_POST['phone'];
-    $emailPremium = $_POST['email-premium'];
-    $endereco = $_POST['address'];
-    $dadosBancarios = $_POST['bank'];
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    $registerDate = date('Y-m-d H:m:s'); 
+  
     echo $target_dir;
     
-    require "../../../includes/conexao.php";
+    require_once "../../../includes/conexao.php";
  
     // Verifica se ocorreu um erro na conexão
     if ($mysqli->connect_error) {
@@ -38,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepara a consulta SQL
 
     try {
-        $stmt = $mysqli->prepare("SELECT * FROM arquitetos WHERE email = ?");
-        $stmt->bind_param('sss', $email);
+        $stmt = $mysqli->prepare("SELECT * FROM vendedores WHERE email = ? OR user = ?");
+        $stmt->bind_param('ss', $email, $user);
         $stmt->execute();
     } catch (\Exception $e) {
         echo $e->getMessage();
@@ -50,15 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     else{
-        $stmt = $mysqli->prepare('INSERT INTO arquitetos (arquiteto, email, senha, dataCadastro, fotoUrl, cpfCnpj, rg, pis, nascimento,  filiacao, telefone, emailPremium, endereco, dadosBancarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $stmt->bind_param('ssssssssssssss', $arquiteto, $email, $senha, $dataCadastro, $fotoUrl, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios);
+        $stmt = $mysqli->prepare('INSERT INTO vendedores (vendedor, usuario, cpf, rg, email, senha, dataCadastro) VALUES (?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param('sssssss', $sellerName, $user, $cpfCnpj, $rg, $email, $password, $registerDate);
     
         // Executa a consulta
         if ($stmt->execute()) {
-            echo 'Arquiteto adicionado com sucesso!';
-            header("location: ../../home.php?architect=sucess");
+            echo 'Vendedor adicionado com sucesso!';
+            header("location: ../../home.php?seller=sucess");
         } else {
-            header("location: ../../home.php?architect=error");
+            header("location: ../../home.php?seller=error");
         }
     }
     

@@ -89,8 +89,8 @@
                     <h2 class='h2'>Cadastrar Vendedor</h2>
                     <span class='closePopUpBtn'>X</span>
                 </div>    
-                <form class='formPopUp' id='addSellerBtn' method='post' action='./includes/controller/addSellerBtn.php'>
-
+                <form class='formPopUp' id='addSellerBtn' method='post' action='./includes/controller/addSeller.php'>
+                <!--action='<?php #echo $url;?>admin/includes/controller/addArchitect.php'-->
                     <div class='inputDiv c50'>
                         <label for='user'>Usuário*</label>
                         <input type='text' name='user' id='sellerUser' required>
