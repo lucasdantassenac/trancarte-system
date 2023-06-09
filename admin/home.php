@@ -99,9 +99,9 @@ function seleciona ($mysqli, $sql) {
                         <h3>Ultimos vendedores adicionados</h3>
                         <table> 
                             <tbody>
-                                <?php while ($exibe = mysqli_fetch_array($selecionaVendedor, MYSQLI_ASSOC)){  ?>
+                                <?php foreach ($selecionaVendedor as $index => $vendedor) {?>
                                     <tr class='tcontent'>
-                                        <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
+                                        <td><?php custom_echo($vendedor['vendedor'], 25); ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

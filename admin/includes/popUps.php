@@ -66,7 +66,7 @@
 
                     <div class="inputDiv c33">
                         <label for='adress'>Endereço completo*</label>
-                        <input type='text' name='adress' id='architectAdress' required>
+                        <input type='text' name='address' id='architectAdress' required>
                     </div>
 
                     <div class="inputDiv c33">
@@ -160,7 +160,7 @@
                     <div class="inputDiv c33">
                         <label for='pis'>Vendedor</label>
                         <select class='i50 if' name='seller' id='seller'>
-                            <?php while ($SellersNames = mysqli_fetch_array($selecionaVendedor, MYSQLI_ASSOC)){  ?>
+                            <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  ?>
                                 <option value="<?php echo $SellersNames['vendedor'];?>"> 
                                     <?php echo $SellersNames['vendedor'] ?>
                                 </option>

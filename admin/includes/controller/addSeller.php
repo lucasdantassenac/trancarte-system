@@ -10,47 +10,7 @@ if(!isset($codigo)){
 }
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //verifica se o arquivo de imagem foi enviado sem erros
-   
-    if (isset($_FILES['photo'])) {
-        $err = "";
-        // Diretório onde as imagens serão armazenadas
-        $target_dir = $url."files/architect-images/";
-        $target_file = $target_dir . strval($codigo) . "_" . basename($_FILES["photo"]["name"]);
-        $uploadOk = 1;
-        #$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        #$check = getimagesize($_FILES["photo"]["tmp_name"]);
-        if($check !== false) {
-            $uploadOk = 1;
-        } else {
-            header("location: ../../home.php?error=error_not_image");
-            $uploadOk = 0;
-        }
 
-        // Check file size
-        if ($_FILES["photo"]["size"] > 1000000) {
-            header("location: ../../home.php?error=error_image_size");
-            $uploadOk = 0;
-        }
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
-            
-            $uploadOk = 0;
-            header("location: ../../home.php?error=error_image_filetype");
-
-        }
-
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            header("location: ../../home.php?error=error_on_upload_image");
-        // if everything is ok, try to upload file
-        } else {
-            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                echo "The file ". htmlspecialchars( basename( $_FILES["photo"]["name"])). " has been uploaded.";
-            } else {
-                $err .= "err_on_image_";
-            }
-        }   
-    }
     // Dados do formulário
     $arquiteto = $_POST['name'];
     $email = $_POST['email'];
@@ -67,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $endereco = $_POST['address'];
     $dadosBancarios = $_POST['bank'];
     echo $target_dir;
-    /*
+    
     require "../../../includes/conexao.php";
  
     // Verifica se ocorreu um erro na conexão
@@ -104,6 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Fecha a conexão
     $stmt->close();
-    $mysqli->close();*/
+    $mysqli->close();
 }
 ?>

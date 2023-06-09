@@ -3,10 +3,12 @@
     $sqlVendedor         = "SELECT * FROM vendedores ORDER BY vendedor LIMIT 10;";
     $sqlArquiteto        = "SELECT * FROM arquitetos ORDER BY dataCadastro DESC LIMIT 10;";
     $sqlAllArchitects    = "SELECT * FROM arquitetos ORDER BY arquiteto;";
+    $sqlAllSellers    = "SELECT * FROM vendedores ORDER BY vendedor;";
     $selectAllarchitects = mysqli_query($mysqli, $sqlAllArchitects);
-    $selecionaPedido     = mysqli_query($mysqli,$sqlPedido); 
-    $selecionaArquiteto  = mysqli_query($mysqli,$sqlArquiteto); 
-    $selecionaVendedor   = mysqli_query($mysqli,$sqlVendedor);
+    $selectAllSellers    = mysqli_query($mysqli, $sqlAllSellers);
+    $selecionaPedido     = mysqli_query($mysqli, $sqlPedido); 
+    $selecionaArquiteto  = mysqli_query($mysqli, $sqlArquiteto); 
+    $selecionaVendedor   = mysqli_query($mysqli, $sqlVendedor);
 ?>
 <body>
 <header>

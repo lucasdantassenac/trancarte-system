@@ -7,7 +7,7 @@ session_start();
     $senha = md5($_POST['senha']);
 
     # aqui foi posto um scape das instruções pq da forma como estava poderia passar um conjunto de comandos para o mysql direto do formulario;
-	$sql="SELECT * FROM arquitetos WHERE email='$email' AND senha = '$senha';";
+	$sql="SELECT * FROM arquitetos WHERE email='$email' AND senha = '$senha' AND status = 'a';";
 	$query=mysqli_query($mysqli,$sql);
 	$num_linhas=mysqli_num_rows($query);
 	
