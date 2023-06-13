@@ -46,7 +46,11 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
                                     <tr class='tcontent'>
                                         <td><?php echo basename($exibe['nome']); ?></td>
-                                        <td><?php echo $exibe['url'] ?></td>
+                                        <td>
+                                            <a href='<?php echo $exibe['url'] ?>'>
+                                                <?php echo $exibe['nomeDoArquivo'] ;?>
+                                            </a>
+                                        </td>
                                         <td><?php echo $exibe['dataCadastro'] ?></td>
                                     </tr>
                                 <?php } ?>

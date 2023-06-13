@@ -67,14 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
                 echo "The file ". htmlspecialchars( basename( $_FILES["photo"]["name"])). " has been uploaded.";
-                $fotoUrl = $url . 'files/architect-images/' . $_FILES['file']['name'];
+                $fotoUrl = $_FILES['photo']['name'];
             } else {
                 $err .= "err_on_image_";
-                $fotoUrl = $url."files/architect-images/logo.png";
+                $fotoUrl = "logo.png";
             }
         }   
     } else{
-        $fotoUrl = $url."files/architect-images/logo.png";
+        $fotoUrl = "logo.png";
     }
     // Dados do formulário
 

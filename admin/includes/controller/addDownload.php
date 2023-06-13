@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = $_POST['fileName'];
                 $registerDate = date('Y-m-d H:m:s'); 
                 $url = $url. 'files/downloads/' . $_FILES['file']['name'];
+                $fileName = $_FILES['file']['name'];
 
                 require "../../../includes/conexao.php";
             
@@ -60,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 
                 if($stmt->num_rows > 0){
-                    $stmt = $mysqli->prepare('UPDATE  downloads SET nome = ?,  url = ?, dataCadastro = ?  WHERE url = ?');
-                    $stmt->bind_param('ssss', $name, $url, $registerDate, $target_file);
+                    $stmt = $mysqli->prepare('UPDATE  downloads SET nome = ?,  url = ?, dataCadastro = ?, nomeDoArquivo = ?  WHERE url = ?');
+                    $stmt->bind_param('sssss', $name, $url, $registerDate, $target_file, $fileName);
                     if($stmt->execute()){
                         header("location: ../../home.php?sucess=user_file_updated");
                     } else{
@@ -69,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 else{
-                    $stmt = $mysqli->prepare('INSERT INTO downloads (nome, url, dataCadastro) VALUES (?, ?, ?)');
-                    $stmt->bind_param('sss', $name, $url, $registerDate );
+                    $stmt = $mysqli->prepare('INSERT INTO downloads (nome, url, dataCadastro, nomeDoArquivo) VALUES (?, ?, ?, ?)');
+                    $stmt->bind_param('ssss', $name, $url, $registerDate, $fileName );
                 
                     // Executa a consulta
                     if ($stmt->execute()) {
