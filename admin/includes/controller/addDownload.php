@@ -37,54 +37,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                echo "The file ". htmlspecialchars( basename( $_FILES["file"]["name"])). " has been uploaded.";
+                $name = $_POST['fileName'];
+                $registerDate = date('Y-m-d H:m:s'); 
+                $url = $url. 'files/downloads/' . $_FILES['file']['name'];
+
+                require "../../../includes/conexao.php";
+            
+                // Verifica se ocorreu um erro na conexão
+                if ($mysqli->connect_error) {
+                    die('Erro na conexão com o banco de dados: ' . $mysqli->connect_error);
+                }
+
+                // Prepara a consulta SQL
+
+                try {
+                    $stmt = $mysqli->prepare("SELECT * FROM downloads WHERE url = ?");
+                    $stmt->bind_param('s', $url);
+                    $stmt->execute();
+                    $stmt->store_result();
+                } catch (\Exception $e) {
+                    echo $e->getMessage();
+                }
+                
+                if($stmt->num_rows > 0){
+                    $stmt = $mysqli->prepare('UPDATE  downloads SET nome = ?,  url = ?, dataCadastro = ?  WHERE url = ?');
+                    $stmt->bind_param('ssss', $name, $url, $registerDate, $target_file);
+                    if($stmt->execute()){
+                        header("location: ../../home.php?sucess=user_file_updated");
+                    } else{
+                        header("location: ../../home.php?error=error_on_file_exists");
+                    }
+                }
+                else{
+                    $stmt = $mysqli->prepare('INSERT INTO downloads (nome, url, dataCadastro) VALUES (?, ?, ?)');
+                    $stmt->bind_param('sss', $name, $url, $registerDate );
+                
+                    // Executa a consulta
+                    if ($stmt->execute()) {
+                        $stmt->store_result();
+                        echo 'Arquiteto adicionado com sucesso!';
+                        header("location: ../../home.php?architect=sucess");
+                    } else {
+                        echo "erro db";
+                        header("location: ../../home.php?architect=error");
+                    }
+                }
+                
+                // Fecha a conexão
+                $stmt->close();
+                $mysqli->close();
             } else {
-                $err .= "err_on_image_";
+                $err .= "err_on_file_";
                 echo $err;
             }
         }   
     }
-    // Dados do formulário
-    $name = $_POST['fileName'];
-    $registerDate = date('Y-m-d H:m:s'); 
-    require "../../../includes/conexao.php";
- 
-    // Verifica se ocorreu um erro na conexão
-    if ($mysqli->connect_error) {
-        die('Erro na conexão com o banco de dados: ' . $mysqli->connect_error);
-    }
 
-    // Prepara a consulta SQL
-
-    try {
-        $stmt = $mysqli->prepare("SELECT * FROM downloads WHERE url = ?");
-        $stmt->bind_param('s', $target_file);
-        $stmt->execute();
-        $stmt->store_result();
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    }
-    
-    if($stmt->num_rows > 0){
-        header("location: ../../home.php?error=user_data_exists");
-    }
-    else{
-        $stmt = $mysqli->prepare('INSERT INTO downloads (nome, url, dataCadastro) VALUES (?, ?, ?)');
-        $stmt->bind_param('sss', $name, $target_file, $registerDate);
-    
-        // Executa a consulta
-        if ($stmt->execute()) {
-            $stmt->store_result();
-            echo 'Arquiteto adicionado com sucesso!';
-            header("location: ../../home.php?architect=sucess");
-        } else {
-            echo "erro db";
-            header("location: ../../home.php?architect=error");
-        }
-    }
-    
-    // Fecha a conexão
-    $stmt->close();
-    $mysqli->close();
 }
+
 ?>
