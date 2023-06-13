@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $url = 'https://' . rtrim($_SERVER['SERVER_NAME'], '/') . '/'."novosistemaarquitetos/";
 ini_set('session.gc_maxlifetime', 3600); // 1 hora
 ini_set('session.cookie_lifetime', 3600);
@@ -18,30 +20,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_dir = $url."files/architect-images/";
         $target_file = $target_dir . strval($codigo) . "_" . basename($_FILES["photo"]["name"]);
         $uploadOk = 1;
-        #$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        #$check = getimagesize($_FILES["photo"]["tmp_name"]);
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        print_r ($_FILES['photo']);
+        $check = getimagesize($_FILES["photo"]["tmp_name"]);
         if($check !== false) {
             $uploadOk = 1;
         } else {
-            header("location: ../../home.php?error=error_not_image");
             $uploadOk = 0;
         }
 
         // Check file size
         if ($_FILES["photo"]["size"] > 1000000) {
-            header("location: ../../home.php?error=error_image_size");
             $uploadOk = 0;
         }
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
-            
             $uploadOk = 0;
-            header("location: ../../home.php?error=error_image_filetype");
-
         }
 
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-            header("location: ../../home.php?error=error_on_upload_image");
+            
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
@@ -66,8 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailPremium = $_POST['email-premium'];
     $endereco = $_POST['address'];
     $dadosBancarios = $_POST['bank'];
-    echo $target_dir;
-    /*
+   
     require "../../../includes/conexao.php";
  
     // Verifica se ocorreu um erro na conexão
@@ -86,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if($stmt->num_rows > 0){
-        header("location: ../../home.php?error=user_data_exists");
+        #header("location: ../../home.php?error=user_data_exists");
     }
 
     else{
@@ -98,12 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo 'Arquiteto adicionado com sucesso!';
             header("location: ../../home.php?architect=sucess");
         } else {
-            header("location: ../../home.php?architect=error");
+            #header("location: ../../home.php?architect=error");
         }
     }
     
     // Fecha a conexão
     $stmt->close();
-    $mysqli->close();*/
+    $mysqli->close();
 }
 ?>

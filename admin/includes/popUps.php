@@ -134,11 +134,11 @@
                     <h2 class='h2'>Cadastrar pedido</h2>
                     <span class='closePopUpBtn'>X</span>
                 </div>    
-                <form class='formPopUp' id='addTaskBtn' method='post' action='./includes/controller/addTaskBtn.php'>
+                <form class='formPopUp' id='addTaskBtn' method='post' action='./includes/controller/addOrder.php'>
                     
                     <div class='inputDiv c50'>
-                        <label for='user'>Pedido`*</label>
-                        <input type='text' name='order' id='order' required>
+                        <label for='order'>Pedido`*</label>
+                        <input type='number' name='order' id='order' required>
                     </div>
 
                     <div class="inputDiv c50">
@@ -148,7 +148,7 @@
                     
                     <div class='inputDiv c33'>
                         <label for='cpf'>Data*</label>
-                        <input class='i50 if' type='date' name='date' id='orderDate' required>
+                        <input class='i50 if' type='datetime-local' name='date' id='orderDate' required>
                        
                     </div>
 
@@ -156,24 +156,27 @@
                         <label for='rg'>Valor*</label>
                         <input class='i50' type='number' name='value' id='orderValue' required>
                     </div>
-
-                    <div class="inputDiv c33">
-                        <label for='pis'>Vendedor</label>
-                        <select class='i50 if' name='seller' id='seller'>
+                    <div class='inputDiv c33'>
+                        <label for='points'>Pontos</label>
+                        <input class='150' type='number' name='points' id='points'>
+                    </div>
+                    <div class="inputDiv c50">
+                        <label for='orderSeller'>Vendedor</label>
+                        <select class='i50 if' name='orderSeller' id='seller'>
                             <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  ?>
-                                <option value="<?php echo $SellersNames['vendedor'];?>"> 
-                                    <?php echo $SellersNames['vendedor'] ?>
+                                <option class='i50' value="<?php echo $SellersNames['idVendedor'];?>"> 
+                                    <?php echo $SellersNames['vendedor'] .' - '. $SellersNames['email'];?>
                                 </option>
                             <?php } ?>
                         </select>
                     </div>
 
                     <div class="inputDiv c50">
-                        <label for='birthday'>Arquiteto*</label>
+                        <label for='orderArchitect'>Arquiteto*</label>
                         <select class='i50' name='orderArchitect' id='orderArchitect' required>
                             <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){  ?>
-                                <option value="<?php echo $architectNames['email'];?>"> 
-                                    <?php echo $architectNames['arquiteto'] ?>
+                                <option class='i50' value="<?php echo $architectNames['idArquiteto'];?>"> 
+                                    <?php echo $architectNames['arquiteto'] .' - '. $architectNames['email']; ?>
                                 </option>
                             <?php } ?>
                         </select>
@@ -196,17 +199,17 @@
                     <input type="hidden" name="MAX_FILE_SIZE" value="50000"  class='c25'/>
                     
                     <div class="inputDiv c100">
-                        <label for='architeName'>Nome</label>
-                        <input type='text' name='architeName' id='archiveName' required>
+                        <label for='fileName'>Nome</label>
+                        <input type='text' name='fileName' id='archiveName' required>
                     </div>
 
                     <div class='inputDiv c100'>
-                        <label for='photo'>Arquivo</label>
-                        <input type='file' name='file' id='file' accept='application/pdf'>
+                        <label for='file'>Arquivo</label>
+                        <input type='file' name='file' id='file' accept='application/pdf, application/msword, application/vnd.ms-excel'>
                     </div>
 
                     <div class="inputDiv c100 btnDiv">
-                        <input type='submit' class='btn seeMore c100' value='Enviar'>
+                        <input name='btn' type='submit' class='btn seeMore c100' value='Enviar'>
                     </div>
                 </form>
             </div>

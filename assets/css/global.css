@@ -42,7 +42,7 @@ a:hover{
 li{
     list-style:none;
 }
-input, .btn{
+input, .btn, select{
     min-height:47px;
     padding:6px 16px;
     border-radius:4px;

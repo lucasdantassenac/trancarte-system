@@ -20,17 +20,9 @@ require_once '../includes/head.php';
 include_once 'includes/header.php'; 
 include_once '../includes/functions.php';
 
-// $sqlPedido = "SELECT pedidos.*, arquitetos.arquiteto FROM pedidos INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto ORDER BY dataCadastro DESC LIMIT 5;";
-// $sqlVendedor  = "SELECT * FROM vendedores ORDER BY vendedor LIMIT 10;";
-// $sqlArquiteto   = "SELECT * FROM arquitetos ORDER BY dataCadastro DESC LIMIT 10;";
-// $selecionaPedido = mysqli_query($mysqli,$sqlPedido); //executa a sql com base na conexão criada
-// $selecionaArquiteto = mysqli_query($mysqli,$sqlArquiteto); //executa a sql com base na conexão criada
-// $selecionaVendedor = mysqli_query($mysqli,$sqlVendedor); //executa a sql com base na conexão criada
 
-function seleciona ($mysqli, $sql) {
-    $queryResult = mysqli_query($mysqli, $sql);
-    return $queryResult;
-}
+
+
 ?>
     <main>
         <?php include_once './includes/popUps.php';  ?>
