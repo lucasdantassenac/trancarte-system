@@ -196,7 +196,7 @@
                 </div> 
 
                 <form enctype="multipart/form-data" class='formPopUp' id='addDownloadForm' method='post' action='./includes/controller/addDownload.php'>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="50000"  class='c25'/>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10000000"  class='c25'/>
                     
                     <div class="inputDiv c100">
                         <label for='fileName'>Nome</label>
