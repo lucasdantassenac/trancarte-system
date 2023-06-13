@@ -21,7 +21,7 @@ include_once 'includes/header.php';
 include_once '../includes/functions.php';
 
 
-$sql = "SELECT * FROM pedidos  ORDER BY dataCadastro DESC;";
+$sql = "SELECT * FROM downloads  ORDER BY dataCadastro DESC;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
@@ -40,14 +40,14 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 <tr class='thead'>
                                     <th>Nome</th>
                                     <th>Arquivo</th>
-                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
                                     <tr class='tcontent'>
-                                        <td><?php echo $exibe['nome'] ?></td>
-                                        <td><?php echo $exibe['link'] ?></td>
+                                        <td><?php echo basename($exibe['nome']); ?></td>
+                                        <td><?php echo $exibe['url'] ?></td>
+                                        <td><?php echo $exibe['dataCadastro'] ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

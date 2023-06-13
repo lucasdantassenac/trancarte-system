@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // Dados do formulário
     $name = $_POST['fileName'];
-   
+    $registerDate = date('Y-m-d H:m:s'); 
     require "../../../includes/conexao.php";
  
     // Verifica se ocorreu um erro na conexão
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepara a consulta SQL
-/*
+
     try {
         $stmt = $mysqli->prepare("SELECT * FROM downloads WHERE url = ?");
         $stmt->bind_param('s', $target_file);
@@ -66,24 +66,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if($stmt->num_rows > 0){
-        #header("location: ../../home.php?error=user_data_exists");
+        header("location: ../../home.php?error=user_data_exists");
     }
-
     else{
-        $stmt = $mysqli->prepare('INSERT INTO downloads (nome, url) VALUES (?, ?)');
-        $stmt->bind_param('ss', $name, $target_file);
+        $stmt = $mysqli->prepare('INSERT INTO downloads (nome, url, dataCadastro) VALUES (?, ?, ?)');
+        $stmt->bind_param('sss', $name, $target_file, $registerDate);
     
         // Executa a consulta
         if ($stmt->execute()) {
+            $stmt->store_result();
             echo 'Arquiteto adicionado com sucesso!';
             header("location: ../../home.php?architect=sucess");
         } else {
-            #header("location: ../../home.php?architect=error");
+            echo "erro db";
+            header("location: ../../home.php?architect=error");
         }
     }
     
     // Fecha a conexão
     $stmt->close();
-    $mysqli->close();*/
+    $mysqli->close();
 }
 ?>
