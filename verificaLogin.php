@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 	include("includes/conexao.php");
 
     $email = $_POST['email'];
@@ -13,7 +14,9 @@ session_start();
 	
 	if ($num_linhas=="0")
 	{
-		header("Location: index.php?erro=1");
+		echo $email;
+		echo $senha;
+		#header("Location: index.php?erro=1");
 	}
 	else
 	{

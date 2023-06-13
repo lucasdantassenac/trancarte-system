@@ -15,10 +15,24 @@ if(!isset($codigo)){
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //verifica se o arquivo de imagem foi enviado sem erros
-   
+    $arquiteto = $_POST['name'];
+    $email = $_POST['email'];
+    $senha = md5($_POST['password']);
+    $dataCadastro = date('Y-m-d H:m:s'); 
+    #$fotoUrl = isset($_FILES['file']['name'])? $url = $url . 'files/downloads/' . $_FILES['file']['name'] : $url."logo.png";
+    $cpfCnpj = $_POST['cpf'];
+    $rg = $_POST['rg'];
+    $pis = $_POST['pis'];
+    $nascimento = date('Y-m-d', strtotime($_POST['birthday'])); 
+    $filiacao = $_POST['filiation'];
+    $telefone = $_POST['phone'];
+    $emailPremium = $_POST['email-premium'];
+    $endereco = $_POST['address'];
+    $dadosBancarios = $_POST['bank'];
+    
     if (isset($_FILES['photo'])) {
         $err = "";
-        $_FILES['photo']['name'] = $codigo. "-" . $_FILES['photo']['name'];
+        $_FILES['photo']['name'] = $cpfCnpj. "-" . $_FILES['photo']['name'];
 
         $target_dir = $pathUrl."files/architect-images/";
         $target_file = $target_dir . basename($_FILES["photo"]["name"]);
@@ -53,30 +67,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
                 echo "The file ". htmlspecialchars( basename( $_FILES["photo"]["name"])). " has been uploaded.";
-                $fotoUrl = $url . 'files/downloads/' . $_FILES['file']['name'];
+                $fotoUrl = $url . 'files/architect-images/' . $_FILES['file']['name'];
             } else {
                 $err .= "err_on_image_";
-                $fotoUrl = $url."logo.png";
+                $fotoUrl = $url."files/architect-images/logo.png";
             }
         }   
     } else{
-        $fotoUrl = $url."logo.png";
+        $fotoUrl = $url."files/architect-images/logo.png";
     }
     // Dados do formulário
-    $arquiteto = $_POST['name'];
-    $email = $_POST['email'];
-    $senha = md5($_POST['password']);
-    $dataCadastro = date('Y-m-d H:m:s'); 
-    #$fotoUrl = isset($_FILES['file']['name'])? $url = $url . 'files/downloads/' . $_FILES['file']['name'] : $url."logo.png";
-    $cpfCnpj = $_POST['cpf'];
-    $rg = $_POST['rg'];
-    $pis = $_POST['pis'];
-    $nascimento = date('Y-m-d', strtotime($_POST['birthday'])); 
-    $filiacao = $_POST['filiation'];
-    $telefone = $_POST['phone'];
-    $emailPremium = $_POST['email-premium'];
-    $endereco = $_POST['address'];
-    $dadosBancarios = $_POST['bank'];
+
    
     require "../../../includes/conexao.php";
  
