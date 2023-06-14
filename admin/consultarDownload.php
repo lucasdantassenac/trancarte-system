@@ -25,49 +25,45 @@ $sql = "SELECT * FROM downloads WHERE status='a' ORDER BY dataCadastro DESC;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
+        <?php include_once './includes/popUps.php';  ?>
         <section class='banner'>
             <div class='overlay'></div>
             <div class='limiter'>
                 <h1 class='h1'>Consultar Downloads</h1>
             </div>
         </section>
-        <section class='contentSection'>
-            <div class='limiter'>
-                <div class='row content'>
-                    <div class='col c75'>
-                        <table> 
-                            <thead>
-                                <tr class='thead'>
-                                    <th>Nome</th>
-                                    <th>Arquivo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
-                                    <tr class='tcontent'>
-                                        <td><?php echo basename($exibe['nome']); ?></td>
-                                        <td>
-                                            <a href='<?php echo $exibe['url'] ?>' target='_blank'>
-                                                <?php echo $exibe['nomeDoArquivo'] ;?>
-                                            </a>
-                                        </td>
-                                        <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class='col c25 fastMenu'>
-                        <h3>Link rápido</h3>
-                        <ul>
-                            <li><a href='#'>Adicionar <b>novo </b>arquiteto</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>pedido</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>vendedor</a></li>
-                        </ul>
-                    </div>
+        <section class='flexCenter'>
+            <div class="limiter">
+               <div class="flexBetween addBtnSection">
+                    <?php include_once './includes/popUpAddBtns.php';?>
                 </div>
             </div>
-            </section>
+        </section>
+        <section class='contentSection'>
+            <div class='limiter'>
+                <table> 
+                    <thead>
+                        <tr class='thead'>
+                            <th>Nome</th>
+                            <th>Arquivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                            <tr class='tcontent'>
+                                <td><?php echo basename($exibe['nome']); ?></td>
+                                <td>
+                                    <a href='<?php echo $exibe['url'] ?>' target='_blank'>
+                                        <?php echo $exibe['nomeDoArquivo'] ;?>
+                                    </a>
+                                </td>
+                                <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 <?php
     require_once '../includes/footer.php';
 ?>

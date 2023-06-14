@@ -25,50 +25,46 @@ $sql = "SELECT * FROM pedidos  ORDER BY dataCadastro DESC;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
+        <?php include_once './includes/popUps.php';  ?>
         <section class='banner'>
             <div class='overlay'></div>
             <div class='limiter'>
                 <h1 class='h1'>Consultar Pedido</h1>
             </div>
         </section>
-        <section class='contentSection'>
-            <div class='limiter'>
-                <div class='row content'>
-                    <div class='col c75'>
-                        <table> 
-                            <thead>
-                                <tr class='thead'>
-                                    <th>Pedido</th>
-                                    <th>Cliente</th>
-                                    <th>Data</th>
-                                    <th>Valor</th>
-                                    <th>Pontos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
-                                    <tr class='tcontent'>
-                                        <td><?php echo $exibe['pedido'] ?></td>
-                                        <td><?php custom_echo($exibe['cliente'], 25); ?></td>
-                                        <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
-                                        <td><?php echo $exibe['valor'] ?></td> 
-                                        <td><?php echo $exibe['pontos'] ?></td> 
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class='col c25 fastMenu'>
-                        <h3>Link rápido</h3>
-                        <ul>
-                            <li><a href='#'>Adicionar <b>novo </b>arquiteto</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>pedido</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>vendedor</a></li>
-                        </ul>
-                    </div>
+        <section class='flexCenter'>
+            <div class="limiter">
+               <div class="flexBetween addBtnSection">
+                    <?php include_once './includes/popUpAddBtns.php';?>
                 </div>
             </div>
-            </section>
+        </section>
+        <section class='contentSection'>
+            <div class='limiter'>
+                <table> 
+                    <thead>
+                        <tr class='thead'>
+                            <th>Pedido</th>
+                            <th>Cliente</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                            <tr class='tcontent'>
+                                <td><?php echo $exibe['pedido'] ?></td>
+                                <td><?php custom_echo($exibe['cliente'], 25); ?></td>
+                                <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
+                                <td><?php echo $exibe['valor'] ?></td> 
+                                <td><?php echo $exibe['pontos'] ?></td> 
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 <?php
     require_once '../includes/footer.php';
 ?>
