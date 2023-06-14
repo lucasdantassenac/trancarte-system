@@ -54,7 +54,7 @@ function seleciona ($mysqli, $sql) {
             <div class='limiter'>
                 <div class='row'>
                     <div class='col c60'>
-                        <img src='<?php echo $url."img/".$arquiteto['fotoUrl'] ;?>' class="profilePhoto">
+                        <img src='<?php echo $url. "files/architect-images/". $arquiteto['fotoUrl'] ;?>' class="profilePhoto">
                     </div>
                     <div class='col colRight c40'>
                         <div class='dataDiv w'>

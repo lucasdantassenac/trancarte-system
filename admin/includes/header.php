@@ -1,6 +1,6 @@
 <?php
     $sqlPedido           = "SELECT pedidos.*, arquitetos.arquiteto FROM pedidos INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto WHERE pedidos.status = 'a' ORDER BY dataCadastro DESC LIMIT 5;";
-    $sqlVendedor         = "SELECT * FROM vendedores WHERE status = 'a' ORDER BY vendedor LIMIT 10;";
+    $sqlVendedor         = "SELECT * FROM vendedores WHERE status = 'a' ORDER BY vendedor DESC LIMIT 10;";
     $sqlArquiteto        = "SELECT * FROM arquitetos WHERE status = 'a' ORDER BY dataCadastro DESC LIMIT 10;";
     $sqlAllArchitects    = "SELECT * FROM arquitetos WHERE status = 'a' ORDER BY arquiteto;";
     $sqlAllSellers       = "SELECT * FROM vendedores WHERE status = 'a' ORDER BY vendedor;";

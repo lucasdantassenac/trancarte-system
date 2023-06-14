@@ -4,6 +4,9 @@ $links = array(
     1 => "assets/css/loginPages/loginGlobal.css",
     2 => "assets/css/loginPages/loginArquiteto.css"
 );
+if(isset($_SESSION)){
+    session_destroy();
+}
 require_once './includes/head.php';
 ?>
 
