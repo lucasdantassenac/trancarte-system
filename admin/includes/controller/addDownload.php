@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_file = $target_dir.basename($_FILES["file"]["name"]);
         $uploadOk = 1;
         $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
+        $fileName = $_FILES['file']['name'];
+        echo $fileName;
         // Check file size
         if ($_FILES["file"]["size"] > 10000000) {
             $uploadOk = 0;
@@ -40,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = $_POST['fileName'];
                 $registerDate = date('Y-m-d H:m:s'); 
                 $url = $url. 'files/downloads/' . $_FILES['file']['name'];
-                $fileName = $_FILES['file']['name'];
 
                 require "../../../includes/conexao.php";
             
@@ -61,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 
                 if($stmt->num_rows > 0){
-                    $stmt = $mysqli->prepare('UPDATE  downloads SET nome = ?,  url = ?, dataCadastro = ?, nomeDoArquivo = ?  WHERE url = ?');
-                    $stmt->bind_param('sssss', $name, $url, $registerDate, $target_file, $fileName);
+                    $stmt = $mysqli->prepare('UPDATE  downloads SET nome = ?,  url = ?, dataCadastro = ?, nomeDoArquivo = ?  WHERE url = ? AND status = "a" ');
+                    $stmt->bind_param('sssss', $name, $url, $registerDate, $fileName, $url);
                     if($stmt->execute()){
                         header("location: ../../home.php?sucess=user_file_updated");
                     } else{

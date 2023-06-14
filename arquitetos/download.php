@@ -21,7 +21,7 @@ include_once '../includes/header.php';
 include_once '../includes/functions.php';
 
 
-$sql = "SELECT * FROM downloads  ORDER BY dataCadastro DESC;";
+$sql = "SELECT * FROM downloads WHERE status='a' ORDER BY dataCadastro DESC;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
@@ -49,8 +49,8 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                     <tr class='tcontent'>
                                         <td><?php echo $exibe['nome'] ?></td>
                                         <td>
-                                            <a href='<?php echo $exibe['url'] ?>'>
-                                                <?php echo $exibe['nomeDoArquivo'] ;?>
+                                            <a href='<?php echo $exibe['url'] ?>' target='_blank'>
+                                                <?php echo formatTime('d/m/Y', $exibe['nomeDoArquivo']) ;?>
                                             </a>
                                         </td>
                                         <td><?php echo $exibe['dataCadastro'] ?></td>
