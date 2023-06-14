@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Prepara a consulta SQL
 
                 try {
-                    $stmt = $mysqli->prepare("SELECT * FROM downloads WHERE url = ?");
+                    $stmt = $mysqli->prepare("SELECT * FROM downloads WHERE url = ? AND stauts = 'a'");
                     $stmt->bind_param('s', $url);
                     $stmt->execute();
                     $stmt->store_result();
