@@ -187,3 +187,8 @@ footer li{
     font-size:24px;
     cursor:pointer;
 }
+
+.popUpAddBtn{
+    width:20%;
+    max-width:350px;
+}

@@ -35,11 +35,14 @@ include_once '../includes/functions.php';
 
         <section class='controllerBtnSection flexCenter'>
             <div class="limiter">
-                <div class="flexBetween">
+               <div class="flexBetween">
+                    <?php require_once './includes/popUpAddBtns.php';?>
+                    <!--
                     <a href='#' class='btn seeMore addBtn' id='addArchitectBtn'>+ Arquitetos</a>
                     <a href='#' class='btn seeMore addBtn' id='addSellerBtn'>+ Vendedor</a>
                     <a href='#' class='btn seeMore addBtn' id='addTaskBtn'>+ Pedido</a>
                     <a href='#' class='btn seeMore addBtn' id='addDownloadBtn'>+ Download</a>
+                -->
                 </div>
             </div>
         </section>
