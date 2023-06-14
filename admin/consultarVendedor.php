@@ -46,6 +46,9 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                         <tr class='thead'>
                             <th>Id</th>
                             <th>Vendedor</th>
+                            <th>E-mail</th>
+                            <th>Controles</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +56,12 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                             <tr class='tcontent'>
                                 <td><?php echo $exibe['idVendedor'] ?></td>
                                 <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
+                                <td><?php custom_echo($exibe['email'], 25); ?></td>
+                                <td>
+                                    <a href="viewUser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
+                                    <a href="updateuser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="deleteUser.php?login=<?php echo $login ?>" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>

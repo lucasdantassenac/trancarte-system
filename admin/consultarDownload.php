@@ -46,6 +46,8 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                         <tr class='thead'>
                             <th>Nome</th>
                             <th>Arquivo</th>
+                            <th>Enviado em</th>
+                            <th>Controles</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +60,11 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                     </a>
                                 </td>
                                 <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
+                                <td>
+                                    <a href="viewUser.php?id=<?php echo $exibe['id'] ?>"><span class="material-symbols-outlined">visibility</span></a>
+                                    <a href="updateuser.php?id=<?php echo $exibe['id'] ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="./includes/delete.php?id=<?php echo $exibe['id'] ?>&table=downloads" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>

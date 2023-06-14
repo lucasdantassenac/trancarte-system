@@ -49,6 +49,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                             <th>Data</th>
                             <th>Valor</th>
                             <th>Pontos</th>
+                            <th>Controles</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,6 +60,11 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
                                 <td><?php echo $exibe['valor'] ?></td> 
                                 <td><?php echo $exibe['pontos'] ?></td> 
+                                <td>
+                                    <a href="viewUser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
+                                    <a href="updateuser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="deleteUser.php?login=<?php echo $login ?>" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
