@@ -5,7 +5,7 @@ session_start();
 
 $codigo = $_SESSION["codigo"];
 
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header("Location: ./index.php?erro=1");
 }
@@ -21,7 +21,7 @@ include_once 'includes/header.php';
 include_once '../includes/functions.php';
 
 
-$sql = "SELECT * FROM vendedores  ORDER BY vendedor;";
+$sql = "SELECT * FROM vendedores  WHERE status = 'a' ORDER BY vendedor;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
@@ -58,17 +58,16 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
                                 <td><?php custom_echo($exibe['email'], 25); ?></td>
                                 <td>
-                                    <a href="viewUser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
-                                    <a href="updateuser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
-                                    <a href="deleteUser.php?login=<?php echo $login ?>" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                    <a href="viewUser.php?login=<?php # echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
+                                    <a href="updateuser.php?login=<?php #echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
                                 </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
-              
-            </section>
+        </section>
 <?php
     require_once '../includes/footer.php';
 ?>

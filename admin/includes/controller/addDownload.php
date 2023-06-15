@@ -8,7 +8,7 @@ ini_set('session.cookie_lifetime', 3600);
 session_start();
 
 $codigo = $_SESSION["codigo"];
-if(!isset($codigo)){
+if(!isset($codigo) || $_SESSION['userType'] != "admin"){
     header($url."?error=not-logged-in");
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt = $mysqli->prepare('UPDATE  downloads SET nome = ?,  url = ?, dataCadastro = ?, nomeDoArquivo = ?  WHERE url = ? AND status = "a" ');
                     $stmt->bind_param('sssss', $name, $url, $registerDate, $fileName, $url);
                     if($stmt->execute()){
-                        header("location: ../../home.php?sucess=user_file_updated");
+                        header("location: ../../home.php?download=user_file_updated");
                     } else{
-                        header("location: ../../home.php?error=error_on_file_exists");
+                        header("location: ../../home.php?download=error_on_file_exists");
                     }
                 }
                 else{
@@ -77,10 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($stmt->execute()) {
                         $stmt->store_result();
                         echo 'Arquiteto adicionado com sucesso!';
-                        header("location: ../../home.php?architect=sucess");
+                        header("location: ../../home.php?download=sucess");
                     } else {
                         echo "erro db";
-                        header("location: ../../home.php?architect=error");
+                        header("location: ../../home.php?download=error");
                     }
                 }
                 

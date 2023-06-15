@@ -19,9 +19,9 @@ session_start();
 	{
 		$reg=mysqli_fetch_array($query);
 		$codigo=$reg['idUsuario'];
-		
+		$userType = "admin";
 		$_SESSION["codigo"] = $codigo;
-		
+		$_SESSION['userType'] = $userType;
 		header("Location: home.php");
 		
 	}

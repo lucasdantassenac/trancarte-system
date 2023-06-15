@@ -5,7 +5,7 @@ session_start();
 
 $codigo = $_SESSION["codigo"];
 
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header("Location: ./index.php?erro=1");
 }
@@ -19,7 +19,7 @@ require_once '../includes/conexao.php';
 require_once '../includes/head.php';
 include_once 'includes/header.php'; 
 require_once '../includes/functions.php';
-$sql = "SELECT * FROM arquitetos  ORDER BY arquiteto;";
+$sql = "SELECT * FROM arquitetos WHERE status = 'a' ORDER BY arquiteto;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
@@ -60,7 +60,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                             <td>
                                 <a href="viewUser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
                                 <a href="updateuser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
-                                <a href="deleteUser.php?login=<?php echo $login ?>" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                <a href="./includes/delete.php?id=<?php echo $exibe['idArquiteto'] ?>&table=arquitetos<?php echo $login ?>" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
                             </td>
                         </tr>
                         <?php } ?>

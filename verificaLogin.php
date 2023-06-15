@@ -22,9 +22,9 @@ ini_set('display_errors', 1);
 	{
 		$reg=mysqli_fetch_array($query);
 		$codigo=$reg['idArquiteto'];
-		
+		$userType = "architect";
 		$_SESSION["codigo"] = $codigo;
-		
+		$_SESSION['userType'] = $userType;
 		header("Location: arquitetos/home.php");
 		
 	}

@@ -5,14 +5,14 @@ session_start();
 
 $codigo = $_SESSION["codigo"];
 
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header("Location: ./index.php?erro=1");
 }
 $links = array(
     0 => "assets/css/global.css",
     1 => "assets/css/header.css",
-    3 => "assets/css/pageStyles/architect.css",
+    3 => "assets/css/pageStyles/orders.css",
     4 => "assets/css/pageStyles/globalPages.css"
 );
 require_once '../includes/conexao.php';
@@ -21,7 +21,7 @@ include_once 'includes/header.php';
 include_once '../includes/functions.php';
 
 
-$sql = "SELECT * FROM pedidos  ORDER BY dataCadastro DESC;";
+$sql = "SELECT * FROM pedidos WHERE status= 'a' ORDER BY dataCadastro DESC;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
@@ -46,6 +46,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                         <tr class='thead'>
                             <th>Pedido</th>
                             <th>Cliente</th>
+                            <th>Arquiteto</th>
                             <th>Data</th>
                             <th>Valor</th>
                             <th>Pontos</th>
@@ -53,17 +54,18 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                        <?php while ($exibe = mysqli_fetch_array($selectAllOrders, MYSQLI_ASSOC)){  ?>
                             <tr class='tcontent'>
                                 <td><?php echo $exibe['pedido'] ?></td>
                                 <td><?php custom_echo($exibe['cliente'], 25); ?></td>
+                                <td><?php custom_echo($exibe['arquiteto'], 25); ?></td>
                                 <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
                                 <td><?php echo $exibe['valor'] ?></td> 
                                 <td><?php echo $exibe['pontos'] ?></td> 
                                 <td>
                                     <a href="viewUser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
                                     <a href="updateuser.php?login=<?php echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
-                                    <a href="deleteUser.php?login=<?php echo $login ?>" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                    <a href="./includes/delete.php?id=<?php echo $exibe['idPedido'] ?>&table=pedidos" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
                                 </td>
                             </tr>
                         <?php } ?>

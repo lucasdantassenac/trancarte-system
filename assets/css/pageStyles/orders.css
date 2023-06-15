@@ -1,0 +1,10 @@
+body{
+    background-color:var(--secondary);
+}
+.banner{
+    background-image:url("../../../img/banners/moveis-personalizados-sob-medida-trancados-trancarte.jpg");
+    margin-bottom:2em;
+}
+.tcontent td:nth-child(2), t.content td:nth-child(3){
+     width:25%;
+}

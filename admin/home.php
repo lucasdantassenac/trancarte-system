@@ -4,8 +4,7 @@ ini_set('session.cookie_lifetime', 3600);
 session_start();
 
 $codigo = $_SESSION["codigo"];
-
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header("Location: ./index.php?erro=1");
 }

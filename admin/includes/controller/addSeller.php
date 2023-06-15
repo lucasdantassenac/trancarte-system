@@ -5,7 +5,8 @@ ini_set('session.cookie_lifetime', 3600);
 session_start();
 
 $codigo = $_SESSION["codigo"];
-if(!isset($codigo)){
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
+{
     header($url."?error=not-logged-in");
 }
 // Verifica se o formulário foi enviado
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Executa a consulta
         if ($stmt->execute()) {
             echo 'Vendedor adicionado com sucesso!';
-            header("location: ../../home.php?seller=sucess");
+            header("location:" . $_SERVER['HTTP_REFERER']. '?seller=sucess');
         } else {
             header("location: ../../home.php?seller=error");
         }
