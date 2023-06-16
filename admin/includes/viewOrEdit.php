@@ -29,18 +29,20 @@ $links = array(
     0 => "assets/css/global.css",
     1 => "assets/css/header.css",
     3 => "assets/css/pageStyles/globalPages.css",
-    4 => "assets/css/pageStyles/profile.css"
+    4 => "assets/css/pageStyles/profile.css",
+    5 => "assets/css/pageStyles/viewOrEdit.css"
 );
 require_once '../../includes/conexao.php';
 require_once '../../includes/head.php';
 include_once '../includes/header.php'; 
 include_once '../../includes/functions.php';
+include_once './adminFunctions.php';
 
 $sqlArquiteto   = "SELECT * FROM arquitetos WHERE idArquiteto = $id;";
 $selecionaArquiteto = mysqli_query($mysqli, $sqlArquiteto); //executa a sql com base na conexão criada
 $arquiteto = mysqli_fetch_array($selecionaArquiteto, MYSQLI_ASSOC);
-if(!isset($arquiteto['fotoUrl'])){
-    $arquiteto['fotoUrl'] = $url."logo.png";
+if(empty($arquiteto['fotoUrl'])){
+    $arquiteto['fotoUrl'] = "logo.png";
 }
 
 function seleciona ($mysqli, $sql) {
@@ -54,7 +56,7 @@ function seleciona ($mysqli, $sql) {
             <div class='limiter'>
             <div class="row">
                     <div class='col c60'>
-                        <p class='h5 w z1'>Perfil</p>
+                        <p class='h5 w z1'>Arquiteto(a):</p>
                         <h1 class='h1'><?php echo $arquiteto['arquiteto']; ?></h1>
                     </div>
                     <div class='col colRight c40'>
@@ -76,16 +78,17 @@ function seleciona ($mysqli, $sql) {
                         <div class='dataDiv w'>
                             <h2 class='h2'>Dados</h2>
                             <?php
-                                echoIfIsset($arquiteto, "email", "E-mail");
-                                echoIfIsset($arquiteto, "cpfCnpj", "CPF/CNPJ");
-                                echoIfIsset($arquiteto, "rg", "RG");
-                                echoIfIsset($arquiteto, "pis", "PIS");
-                                echoIfIsset($arquiteto, "nascimento", "Data de Nascimento");
-                                echoIfIsset($arquiteto, "filiacao", "Filiação");
-                                echoIfIsset($arquiteto, "telefone", "Telefone");
-                                echoIfIsset($arquiteto, "emailPremium", "E-mail premium");
-                                echoIfIsset($arquiteto, "endereco", "Endereço");
-                                echoIfIsset($arquiteto, "dadosBancarios", "Dados bancários");
+                                echoIfIssetAdmin($arquiteto, "email", "E-mail", $readonly);
+                                echoIfIssetAdmin($arquiteto, "cpfCnpj", "CPF/CNPJ", $readonly);
+                                echoIfIssetAdmin($arquiteto, "rg", "RG", $readonly);
+                                echoIfIssetAdmin($arquiteto, "pis", "PIS", $readonly);
+                                echoIfIssetAdmin($arquiteto, "nascimento", "Data de Nascimento", 'date', $readonly, 'date');
+                                echoIfIssetAdmin($arquiteto, "dataCadastro", "Data de Cadastro", $readonly, 'date');
+                                echoIfIssetAdmin($arquiteto, "filiacao", "Filiação", $readonly);
+                                echoIfIssetAdmin($arquiteto, "telefone", "Telefone", $readonly);
+                                echoIfIssetAdmin($arquiteto, "emailPremium", "E-mail premium", $readonly);
+                                echoIfIssetAdmin($arquiteto, "endereco", "Endereço", $readonly);
+                                echoIfIssetAdmin($arquiteto, "dadosBancarios", "Dados bancários", $readonly);
                             ?>
                         </div>
                     </div>
@@ -93,5 +96,5 @@ function seleciona ($mysqli, $sql) {
             </div>
         </section>
 <?php
-    require_once '../includes/footer.php';
+    require_once '../../includes/footer.php';
 ?>
