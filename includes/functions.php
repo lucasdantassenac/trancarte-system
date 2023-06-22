@@ -20,8 +20,8 @@ function formatTime($format, $date){
 
 
 function echoIfIsset($array, $index, $title){
-  
-  if(isset($array[$index]) && isset($title)){
+
+  if(isset($array[$index]) && !empty($array[$index]) && isset($title)){
     echo "<h4 class='h5'>$title</h4>
           <p>".$array[$index]."</p>";
     return true;

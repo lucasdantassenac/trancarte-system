@@ -1,4 +1,4 @@
-let btns = document.querySelectorAll(".addBtn"), 
+let btns = document.querySelectorAll(".popUpAddBtn"), 
     closePopUpBtns = document.querySelectorAll('.closePopUpBtn'),
     popUps = document.querySelectorAll(".addPopUp"),
     overlay = document.querySelector("#popUpOverlay"),

@@ -5,7 +5,7 @@ session_start();
 
 $codigo = $_SESSION["codigo"];
 
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header("Location: ./index.php?erro=1");
 }
@@ -21,48 +21,53 @@ include_once 'includes/header.php';
 include_once '../includes/functions.php';
 
 
-$sql = "SELECT * FROM vendedores  ORDER BY vendedor;";
+$sql = "SELECT * FROM vendedores  WHERE status = 'a' ORDER BY vendedor;";
 $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão criada
 ?>
     <main>
+        <?php include_once './includes/popUps.php';  ?>
         <section class='banner'>
             <div class='overlay'></div>
             <div class='limiter'>
                 <h1 class='h1'>Consultar Vendedor</h1>
             </div>
         </section>
-        <section class='contentSection'>
-            <div class='limiter'>
-                <div class='row content'>
-                    <div class='col c75'>
-                    <table> 
-                            <thead>
-                                <tr class='thead'>
-                                    <th>Id</th>
-                                    <th>Vendedor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
-                                    <tr class='tcontent'>
-                                        <td><?php echo $exibe['idVendedor'] ?></td>
-                                        <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class='col c25 fastMenu'>
-                        <h3>Link rápido</h3>
-                        <ul>
-                            <li><a href='#'>Adicionar <b>novo </b>arquiteto</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>pedido</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>vendedor</a></li>
-                        </ul>
-                    </div>
+        <section class='flexCenter'>
+            <div class="limiter">
+               <div class="flexBetween addBtnSection">
+                    <?php include_once './includes/popUpAddBtns.php';?>
                 </div>
             </div>
-            </section>
+        </section>
+        <section class='contentSection'>
+            <div class='limiter'>
+                <table> 
+                    <thead>
+                        <tr class='thead'>
+                            <th>Id</th>
+                            <th>Vendedor</th>
+                            <th>E-mail</th>
+                            <th>Controles</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                            <tr class='tcontent'>
+                                <td><?php echo $exibe['idVendedor'] ?></td>
+                                <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
+                                <td><?php custom_echo($exibe['email'], 25); ?></td>
+                                <td>
+                                    <a href="viewUser.php?login=<?php # echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
+                                    <a href="updateuser.php?login=<?php #echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 <?php
     require_once '../includes/footer.php';
 ?>

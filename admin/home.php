@@ -4,8 +4,7 @@ ini_set('session.cookie_lifetime', 3600);
 session_start();
 
 $codigo = $_SESSION["codigo"];
-
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header("Location: ./index.php?erro=1");
 }
@@ -35,11 +34,14 @@ include_once '../includes/functions.php';
 
         <section class='controllerBtnSection flexCenter'>
             <div class="limiter">
-                <div class="flexBetween">
+               <div class="flexBetween">
+                    <?php require_once './includes/popUpAddBtns.php';?>
+                    <!--
                     <a href='#' class='btn seeMore addBtn' id='addArchitectBtn'>+ Arquitetos</a>
                     <a href='#' class='btn seeMore addBtn' id='addSellerBtn'>+ Vendedor</a>
                     <a href='#' class='btn seeMore addBtn' id='addTaskBtn'>+ Pedido</a>
                     <a href='#' class='btn seeMore addBtn' id='addDownloadBtn'>+ Download</a>
+                -->
                 </div>
             </div>
         </section>
