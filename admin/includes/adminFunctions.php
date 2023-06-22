@@ -7,7 +7,7 @@ function echoIfIssetAdmin($array, $index, $title, $readonly = "", $type = 'text'
         "
         <div class ='data-div'>
             <label for='$index' class='h5'>$title</label>
-            <input name='input' type='$type' value=". $array[$index] ."'$readonly>
+            <input name='input' type='$type' value='". $array[$index] ."' $readonly>
         </div>
         ";
         return true;

@@ -13,14 +13,47 @@ if(!isset($codigo) || $_SESSION['userType'] != "admin")
 
 $id = "";
 $readonly = "readonly";
-
+$tableName;
+$query = 0;
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
-    if($_GET['edit'] == 'true')
-    {
-        $readonly = "";
+    if($_GET['edit'] == 'true') $readonly = "";
+    
+    if(!isset($_GET['table']) || empty($_GET['table'])){
+        echo "sem tabela";
+    }else{
+        $tableName = $_GET['table'];
     }
+
+
+    
+    switch ($tableName) {
+        case 'arquitetos':
+            $query = ("SELECT * FROM $tableName WHERE idArquiteto = $id");
+            break;
+
+        case 'pedidos':
+            $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
+
+        break;
+
+        case 'vendedores':
+            $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
+
+        break;
+
+        case 'downloads':
+            $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
+            $searchDownload = "SELECT * FROM downloads WHERE id = ?";
+        break; 
+        
+        default:
+            header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=error_on_delete");
+
+        break;
+    }
+
 }else{
     echo "sem iD";
 }
@@ -38,8 +71,7 @@ include_once '../includes/header.php';
 include_once '../../includes/functions.php';
 include_once './adminFunctions.php';
 
-$sqlArquiteto   = "SELECT * FROM arquitetos WHERE idArquiteto = $id;";
-$selecionaArquiteto = mysqli_query($mysqli, $sqlArquiteto); //executa a sql com base na conexão criada
+$selecionaArquiteto = mysqli_query($mysqli, $query); //executa a sql com base na conexão criada
 $arquiteto = mysqli_fetch_array($selecionaArquiteto, MYSQLI_ASSOC);
 if(empty($arquiteto['fotoUrl'])){
     $arquiteto['fotoUrl'] = "logo.png";
