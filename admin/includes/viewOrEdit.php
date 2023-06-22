@@ -15,6 +15,7 @@ $id = "";
 $readonly = "readonly";
 $tableName;
 $query = 0;
+
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
@@ -65,6 +66,7 @@ $links = array(
     4 => "assets/css/pageStyles/profile.css",
     5 => "assets/css/pageStyles/viewOrEdit.css"
 );
+
 require_once '../../includes/conexao.php';
 require_once '../../includes/head.php';
 include_once '../includes/header.php'; 
@@ -109,19 +111,30 @@ function seleciona ($mysqli, $sql) {
                     <div class='col colRight c40'>
                         <div class='dataDiv w'>
                             <h2 class='h2'>Dados</h2>
-                            <?php
-                                echoIfIssetAdmin($arquiteto, "email", "E-mail", $readonly);
-                                echoIfIssetAdmin($arquiteto, "cpfCnpj", "CPF/CNPJ", $readonly);
-                                echoIfIssetAdmin($arquiteto, "rg", "RG", $readonly);
-                                echoIfIssetAdmin($arquiteto, "pis", "PIS", $readonly);
-                                echoIfIssetAdmin($arquiteto, "nascimento", "Data de Nascimento", 'date', $readonly, 'date');
-                                echoIfIssetAdmin($arquiteto, "dataCadastro", "Data de Cadastro", $readonly, 'date');
-                                echoIfIssetAdmin($arquiteto, "filiacao", "Filiação", $readonly);
-                                echoIfIssetAdmin($arquiteto, "telefone", "Telefone", $readonly);
-                                echoIfIssetAdmin($arquiteto, "emailPremium", "E-mail premium", $readonly);
-                                echoIfIssetAdmin($arquiteto, "endereco", "Endereço", $readonly);
-                                echoIfIssetAdmin($arquiteto, "dadosBancarios", "Dados bancários", $readonly);
-                            ?>
+                            <form action='./controller/update.php' method='post' enctype="multipart/form-data">
+                                <?php
+                                    if($_GET['edit'] == 'true'){
+                                        echoIfIssetAdmin($_GET['edit'], $arquiteto, "pontuacao", "Pontuação", $readonly);
+                                    }
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "email", "E-mail", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "cpfCnpj", "CPF/CNPJ", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "rg", "RG", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "pis", "PIS", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "nascimento", "Data de Nascimento", $readonly, 'date');
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "filiacao", "Filiação", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "telefone", "Telefone", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "emailPremium", "E-mail premium", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "endereco", "Endereço", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "dadosBancarios", "Dados bancários", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
+                                
+                                    if($_GET['edit'] == 'true'){
+                                ?>
+                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
+                                <?php
+                                    }
+                                ?>
+                            </form>
                         </div>
                     </div>
                 </div>

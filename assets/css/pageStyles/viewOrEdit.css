@@ -1,6 +1,18 @@
-.data-div{
+.dataItemDiv{
     display:flex;
     flex-direction: column;
     margin-top:1em;
 
+}
+
+.mt2{
+    margin-top:15px;
+}
+
+.bgReadOnly{
+    background-color:#ddd;
+}
+
+.btnUpdate{
+    background-color:#fff;
 }

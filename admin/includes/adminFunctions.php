@@ -1,13 +1,19 @@
 <?php 
-function echoIfIssetAdmin($array, $index, $title, $readonly = "", $type = 'text',){
-
-    if(isset($array[$index]) && !empty($array[$index]) && isset($title))
+function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "", $type = 'text'){
+    $bg = "";
+    if((isset($array[$index]) && !empty($array[$index]) && isset($title)) || $edit == 'true')
     {
+        if($index === "dataCadastro" ){
+           $readonly = "readonly";
+         }
+         if($readonly === "readonly"){
+            $bg = "bgReadOnly";
+         }
         echo 
         "
-        <div class ='data-div'>
+        <div class ='dataItemDiv'>
             <label for='$index' class='h5'>$title</label>
-            <input name='input' type='$type' value='". $array[$index] ."' $readonly>
+            <input name='input' type='$type' class='$bg' value='". $array[$index] ."' $readonly>
         </div>
         ";
         return true;
