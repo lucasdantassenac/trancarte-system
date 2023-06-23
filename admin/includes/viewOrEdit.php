@@ -16,6 +16,8 @@ $readonly = "readonly";
 $tableName;
 $query = 0;
 $nome;
+$points;
+
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
@@ -33,11 +35,18 @@ if(isset($_GET['id']))
         case 'arquitetos':
             $query = ("SELECT * FROM $tableName WHERE arquitetos = $id");
             $nome = "arquiteto";
+            $points = 'pontuacao';
             break;
 
         case 'pedidos':
-            $query = ("SELECT  $tableName.*, arquitetos.arquiteto, vendedores.vendedor WHERE idPedido = $id INNER JOIN arquitetos ON pedidos.idArquiteto = ");
+            $query = ("SELECT $tableName.*, arquitetos.arquiteto, vendedores.vendedor 
+                INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto 
+                INNER JOIN vendedores ON pedidos.idVendedor = vendedores.idVendedor
+                WHERE idPedido = $id ");
+
             $nome = "pedido";
+            $points = 'pontos';
+
         break;
 
         case 'vendedores':
@@ -95,10 +104,10 @@ function seleciona ($mysqli, $sql) {
                         <h1 class='h1'><?php echo $returnedEntity[$nome]; ?></h1>
                     </div>
                     <div class='col colRight c40'>
-                        <?php if ($tableName === 'arquitetos'){?>
+                        <?php if ($tableName === 'arquitetos' || $tableName === "pedidos"){?>
                         <div class='pointsDiv tc'>
                             <h2 class='h5'>Pontuação:</h2>
-                            <p class='pointsText b h3'><?php echo $returnedEntity['pontuacao'];?></p>
+                            <p class='pointsText b h3'><?php echo $returnedEntity[$points];?></p>
                         </div>
                         <?php } ?>
                     </div>
@@ -137,6 +146,7 @@ function seleciona ($mysqli, $sql) {
                                     }
                                 }
                                 if($tableName === "vendedores"){
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "vendedor", "Vendedor", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "usuario", "Usuário", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpf", "CPF", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
@@ -154,18 +164,29 @@ function seleciona ($mysqli, $sql) {
                                     if($_GET['edit'] == 'true'){
                                         echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontuação", $readonly);
                                     }
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpfCnpj", "CPF/CNPJ", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pis", "PIS", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nascimento", "Data de Nascimento", $readonly, 'date');
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "filiacao", "Filiação", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "telefone", "Telefone", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "emailPremium", "E-mail premium", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "endereco", "Endereço", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dadosBancarios", "Dados bancários", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cliente", "Cliente", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "valor", "Valor", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "data", "Data do pedido", $readonly, 'date');
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
-                                
+                                ?>
+                                    <label for='orderSeller'>Vendedor</label>
+                                    <select class='i50 if' name='orderSeller' id='seller'>
+                                        <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  ?>
+                                            <option class='i50' value="<?php echo $SellersNames['idVendedor'];?>"> 
+                                                <?php echo $SellersNames['vendedor'] .' - '. $SellersNames['email'];?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+            
+                                    <label for='orderArchitect'>Arquiteto*</label>
+                                    <select class='i50' name='orderArchitect' id='orderArchitect' required>
+                                        <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){  ?>
+                                            <option class='i50' value="<?php echo $architectNames['idArquiteto'];?>"> 
+                                                <?php echo $architectNames['arquiteto'] .' - '. $architectNames['email']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                <?php
                                     if($_GET['edit'] == 'true'){
                                 ?>  
                                     <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
