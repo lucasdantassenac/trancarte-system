@@ -34,7 +34,7 @@ if(isset($_GET['id']))
     
     switch ($tableName) {
         case 'arquitetos':
-            $query = ("SELECT * FROM $tableName WHERE arquitetos = $id AND status='a' ");
+            $query = ("SELECT * FROM $tableName WHERE idArquiteto = $id AND status='a' ");
             $nome = "arquiteto";
             $nameOf = "Nome do(a) arquiteto(a)";
             $points = 'pontuacao';
@@ -96,10 +96,10 @@ if(empty($returnedEntity['fotoUrl'])){
     $returnedEntity['fotoUrl'] = "logo.png";
 }
 
-function seleciona ($mysqli, $sql) {
-    $queryResult = mysqli_query($mysqli, $sql);
-    return $queryResult;
-}
+// function seleciona ($mysqli, $sql) {
+//     $queryResult = mysqli_query($mysqli, $sql);
+//     return $queryResult;
+// }
 ?>
     <main>
         <section class='banner'>
@@ -144,30 +144,16 @@ function seleciona ($mysqli, $sql) {
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "endereco", "Endereço", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dadosBancarios", "Dados bancários", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
-                                
-                                    if($_GET['edit'] == 'true'){
-                            ?>  
-                                    <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
-                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
-                                <?php
-                                    }
                                 }
-                                if($tableName === "vendedores"){
+                                elseif($tableName === "vendedores"){
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "vendedor", "Vendedor", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "usuario", "Usuário", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpf", "CPF", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
-                                
-                                    if($_GET['edit'] == 'true'){
-                                ?>  
-                                    <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
-                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
-                                <?php
-                                    }
                                 }
-                                if($tableName === "pedidos"){
+                                elseif($tableName === "pedidos"){
                                     if($_GET['edit'] == 'true'){
                                         echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontos", $readonly);
                                     }
@@ -213,24 +199,28 @@ function seleciona ($mysqli, $sql) {
                                     if($_GET['edit'] == 'true'){
                                 ?>  
                                     <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
+                                    <input type='hidden' name='id' value='<?php echo $id ;?>'>
                                     <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
                                 <?php
                                     }
                                 }
-                                if($tableName === "downloads"){
+                                elseif($tableName === "downloads"){
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nome", "Nome", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nomeDoArquivo", "nome do arquivo", 'readonly');
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "url", "Url", 'readonly');
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
-                                
-                                    if($_GET['edit'] == 'true'){
-                                ?>  
-                                    <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
-                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
-                                <?php
-                                    }
                                 }
+                                if($_GET['edit'] == 'true'){
                                 ?>
+                                    <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
+                                    <input type='hidden' name='id' value='<?php echo $id ;?>'>
+
+                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>   
+                                <?php }else{ ?>
+                                    <div class='divBtnEdit mt2'>
+                                        <a href='<?php $url?>includes/viewOrEdit.php?<?php echo "id=$id&table=$tableName&edit=true";?>' class='btn btnEdit mt2'> Editar</a> 
+                                    </div>
+                                <?php } ?>
                             </form>
                         </div>
                     </div>
