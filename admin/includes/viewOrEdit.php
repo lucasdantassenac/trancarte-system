@@ -193,16 +193,7 @@ if(empty($returnedEntity['fotoUrl'])){
                                             <?php } ?>
                                         </select>
                                     </div>
-            
-                                    
                                 <?php
-                                    if($_GET['edit'] == 'true'){
-                                ?>  
-                                    <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
-                                    <input type='hidden' name='id' value='<?php echo $id ;?>'>
-                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
-                                <?php
-                                    }
                                 }
                                 elseif($tableName === "downloads"){
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nome", "Nome", $readonly);
@@ -218,7 +209,7 @@ if(empty($returnedEntity['fotoUrl'])){
                                     <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>   
                                 <?php }else{ ?>
                                     <div class='divBtnEdit mt2'>
-                                        <a href='<?php $url?>includes/viewOrEdit.php?<?php echo "id=$id&table=$tableName&edit=true";?>' class='btn btnEdit mt2'> Editar</a> 
+                                        <a href='<?php $url?>viewOrEdit.php?<?php echo "id=$id&table=$tableName&edit=true";?>' class='btn btnEdit mt2'> Editar</a> 
                                     </div>
                                 <?php } ?>
                             </form>
