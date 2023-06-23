@@ -35,18 +35,17 @@ if(isset($_GET['id']))
             break;
 
         case 'pedidos':
-            $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
+            $query = ("SELECT * FROM $tableName WHERE idPedido = $id");
 
         break;
 
         case 'vendedores':
-            $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
+            $query = ("SELECT * FROM $tableName WHERE idVendedor = $id");
 
         break;
 
         case 'downloads':
-            $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
-            $searchDownload = "SELECT * FROM downloads WHERE id = ?";
+            $query = ("SELECT * FROM $tableName WHERE id = $id");
         break; 
         
         default:

@@ -58,8 +58,8 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
                                 <td><?php custom_echo($exibe['email'], 25); ?></td>
                                 <td>
-                                    <a href="viewUser.php?login=<?php # echo $login ?>"><span class="material-symbols-outlined">visibility</span></a>
-                                    <a href="updateuser.php?login=<?php #echo $login ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a>
+                                    <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor'] ?>&edit=false&table=arquitetos"><span class="material-symbols-outlined"> edit </span></a>
                                     <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
                                 </td>
                             </tr>
