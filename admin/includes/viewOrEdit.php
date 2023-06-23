@@ -34,8 +34,9 @@ if(isset($_GET['id']))
     
     switch ($tableName) {
         case 'arquitetos':
-            $query = ("SELECT * FROM $tableName WHERE arquitetos = $id");
+            $query = ("SELECT * FROM $tableName WHERE arquitetos = $id AND status='a' ");
             $nome = "arquiteto";
+            $nameOf = "Nome do(a) arquiteto(a)";
             $points = 'pontuacao';
             break;
 
@@ -48,18 +49,21 @@ if(isset($_GET['id']))
                 ORDER BY arquitetos.arquiteto DESC;";
 
             $nome = "pedido";
+            $nameOf = "Número do pedido";
             $points = 'pontos';
 
         break;
 
         case 'vendedores':
-            $query = ("SELECT * FROM $tableName WHERE idVendedor = $id");
+            $query = ("SELECT * FROM $tableName WHERE idVendedor = $id AND status='a'");
             $nome = "vendedor";
+            $nameOf = "Nome do(a) vendedor(a)";
             break;
 
         case 'downloads':
-            $query = ("SELECT * FROM $tableName WHERE id = $id");
+            $query = ("SELECT * FROM $tableName WHERE id = $id AND status='a' ");
             $nome = "nome";
+            $nameOf = "Download:";
         break; 
         
         default:
@@ -103,7 +107,7 @@ function seleciona ($mysqli, $sql) {
             <div class='limiter'>
                 <div class="row">
                     <div class='col c60'>
-                        <p class='h5 w z1'>:</p>
+                        <p class='h5 w z1'><?php echo $nameOf; ?> </p>
                         <h1 class='h1'><?php echo $returnedEntity[$nome]; ?></h1>
                     </div>
                     <div class='col colRight c40'>
@@ -163,7 +167,6 @@ function seleciona ($mysqli, $sql) {
                                 <?php
                                     }
                                 }
-                                echo $returnedEntity['valor'];
                                 if($tableName === "pedidos"){
                                     if($_GET['edit'] == 'true'){
                                         echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontos", $readonly);
@@ -215,19 +218,9 @@ function seleciona ($mysqli, $sql) {
                                     }
                                 }
                                 if($tableName === "downloads"){
-                                    if($_GET['edit'] == 'true'){
-                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontuacao", "Pontuação", $readonly);
-                                    }
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpfCnpj", "CPF/CNPJ", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pis", "PIS", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nascimento", "Data de Nascimento", $readonly, 'date');
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "filiacao", "Filiação", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "telefone", "Telefone", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "emailPremium", "E-mail premium", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "endereco", "Endereço", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dadosBancarios", "Dados bancários", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nome", "Nome", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nomeDoArquivo", "nome do arquivo", 'readonly');
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "url", "Url", 'readonly');
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
                                 
                                     if($_GET['edit'] == 'true'){

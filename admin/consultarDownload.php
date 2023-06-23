@@ -61,8 +61,8 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 </td>
                                 <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
                                 <td>
-                                    <a href="viewUser.php?id=<?php echo $exibe['id'] ?>"><span class="material-symbols-outlined">visibility</span></a>
-                                    <a href="updateuser.php?id=<?php echo $exibe['id'] ?>"><span class="material-symbols-outlined"> edit </span></a>
+                                    <a href="<?php echo $exibe['url'] ?>" download><span class="material-symbols-outlined">download</span></a>
+                                    <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['id']?>&table=downloads&edit=true"><span class="material-symbols-outlined"> edit </span></a>
                                     <a href="./includes/delete.php?id=<?php echo $exibe['id'] ?>&table=downloads" onclick="return confirm('Confirma a Exclusão do arquivo?')"><span class="material-symbols-outlined"> delete </span></a>
                                 </td>
                             </tr>
