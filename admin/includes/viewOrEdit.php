@@ -13,6 +13,7 @@ if(!isset($codigo) || $_SESSION['userType'] != "admin")
 
 $id = "";
 $readonly = "readonly";
+$disabled = "disabled";
 $tableName;
 $query = 0;
 $nome;
@@ -21,7 +22,7 @@ $points;
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
-    if($_GET['edit'] == 'true') $readonly = "";
+    if($_GET['edit'] == 'true') {$readonly = ""; $disabled="";}
     
     if(!isset($_GET['table']) || empty($_GET['table'])){
         echo "sem tabela";
@@ -170,9 +171,14 @@ function seleciona ($mysqli, $sql) {
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
                                 ?>
                                     <label for='orderSeller'>Vendedor</label>
-                                    <select class='i50 if' name='orderSeller' id='seller'>
-                                        <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  ?>
-                                            <option class='i50' value="<?php echo $SellersNames['idVendedor'];?>"> 
+                                    <select class='i50' name='orderSeller' id='seller'>
+                                        <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  
+                                            $selected = "";
+                                            if($SellersNames['idVendedor'] == $returnedEntity['idVendedor'] ){
+                                                $selected = 'selected';
+                                            }    
+                                        ?>
+                                            <option class='i50' value="<?php echo $SellersNames['idVendedor']; echo $selected;?>"> 
                                                 <?php echo $SellersNames['vendedor'] .' - '. $SellersNames['email'];?>
                                             </option>
                                         <?php } ?>
@@ -180,8 +186,13 @@ function seleciona ($mysqli, $sql) {
             
                                     <label for='orderArchitect'>Arquiteto*</label>
                                     <select class='i50' name='orderArchitect' id='orderArchitect' required>
-                                        <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){  ?>
-                                            <option class='i50' value="<?php echo $architectNames['idArquiteto'];?>"> 
+                                        <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){
+                                            $selected = "";
+                                            if($architectNames['idVendedor'] == $returnedEntity['idArquiteto'] ){
+                                                $selected = 'selected';
+                                            }   
+                                        ?>
+                                            <option class='i50' value="<?php echo $architectNames['idArquiteto']; echo $selected;?>"> 
                                                 <?php echo $architectNames['arquiteto'] .' - '. $architectNames['email']; ?>
                                             </option>
                                         <?php } ?>
