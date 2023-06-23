@@ -44,7 +44,8 @@ if(isset($_GET['id']))
                 FROM pedidos 
                 INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto 
                 INNER JOIN vendedores ON pedidos.idVendedor = vendedores.idVendedor                    
-                WHERE pedidos.status = 'a' ORDER BY arquitetos.arquiteto DESC;";
+                WHERE idPedido = $id AND  pedidos.status = 'a' 
+                ORDER BY arquitetos.arquiteto DESC;";
 
             $nome = "pedido";
             $points = 'pontos';
@@ -162,9 +163,10 @@ function seleciona ($mysqli, $sql) {
                                 <?php
                                     }
                                 }
+                                echo $returnedEntity['valor'];
                                 if($tableName === "pedidos"){
                                     if($_GET['edit'] == 'true'){
-                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontuação", $readonly);
+                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontos", $readonly);
                                     }
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pedido", "N° do pedido", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cliente", "Cliente", $readonly);
