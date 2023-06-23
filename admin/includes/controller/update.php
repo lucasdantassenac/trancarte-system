@@ -11,7 +11,7 @@ if(!isset($codigo) || $_SESSION['userType'] != "admin")
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
         $id = intval($_GET['id']);
-        $tableName = $_GET['table'];
+        $tableName = $_POST['table'];
         $query = 0;
         $searchDownload = 0;
 
