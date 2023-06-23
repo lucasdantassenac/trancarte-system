@@ -4,41 +4,59 @@ ini_set('display_errors', 1);
 ini_set('session.gc_maxlifetime', 3600); // 1 hora
 ini_set('session.cookie_lifetime', 3600);
 session_start();
+echo "oi";
 
+$codigo = $_SESSION['codigo'];
 if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header($url."?error=not-logged-in");
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
-        $id = intval($_GET['id']);
-        $tableName = $_POST['table'];
-        $query = 0;
-        $searchDownload = 0;
 
-        if($tableName === 'arquitetos'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    $id = intval($_POST['id']);
+    $tableName = $_POST['table'];
+    $query = 0;
+    $searchDownload = 0;
+    require "../../../includes/conexao.php";
 
-            $arquiteto = $_POST['name'];
-            $email = $_POST['email'];
-            $senha = md5($_POST['password']);
-            $dataCadastro = date('Y-m-d H:m:s'); 
-            #$fotoUrl = isset($_FILES['file']['name'])? $url = $url . 'files/downloads/' . $_FILES['file']['name'] : $url."logo.png";
-            $cpfCnpj = $_POST['cpf'];
-            $rg = $_POST['rg'];
-            $pis = $_POST['pis'];
-            $nascimento = date('Y-m-d', strtotime($_POST['birthday'])); 
-            $filiacao = $_POST['filiation'];
-            $telefone = $_POST['phone'];
-            $emailPremium = $_POST['email-premium'];
-            $endereco = $_POST['address'];
-            $dadosBancarios = $_POST['bank'];
 
-            $query = ("
-                UPDATE arquitetos 
-                SET
-                WHERE idArquiteto = ? AND status = 'a' OR status = 'b'"
-            );
+    if($tableName === 'arquitetos'){
 
-        }elseif($tableName === 'pedidos'){
+        $arquiteto = $_POST['nome'];
+        $email = $_POST['email'];
+        $senha = md5($_POST['password']);
+        $dataCadastro = date('Y-m-d H:m:s'); 
+        #$fotoUrl = isset($_FILES['file']['name'])? $url = $url . 'files/downloads/' . $_FILES['file']['name'] : $url."logo.png";
+        $cpfCnpj = $_POST['cpf'];
+        $rg = $_POST['rg'];
+        $pis = $_POST['pis'];
+        $nascimento = date('Y-m-d', strtotime($_POST['birthday'])); 
+        $filiacao = $_POST['filiation'];
+        $telefone = $_POST['phone'];
+        $emailPremium = $_POST['email-premium'];
+        $endereco = $_POST['address'];
+        $dadosBancarios = $_POST['bank'];
+        $pontuacao = $_POST['pontuacao'];}
+/*
+
+        $stmt = $mysqli->prepare('UPDATE arquitetos SET arquiteto=?, pontuacao=? email=?, senha=?, dataCadastro=?, cpfCnpj=?, rg=?, pis=?, nascimento=?, filiacao=?, telefone=?, emailPremium=?, endereco=?, dadosBancarios=? WHERE id=?');
+        $stmt->bind_param('sdssssssssssssi', $arquiteto, $pontuacao, $email, $senha, $dataCadastro, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios, $id);
+
+        // Executa a consulta
+        if ($stmt->execute()) {
+            $stmt->store_result();
+
+            echo 'Arquiteto editado  com sucesso!';
+            #header("location: ../../home.php?architect=sucess");
+        } else {
+            #header("location: ../../home.php?architect=error");
+        }
+                // Fecha a conexão
+        $stmt->close();
+        $mysqli->close();
+
+    }
+    elseif($tableName === 'pedidos'){
            
             $orderNumber = $_POST['order'];
             $clientName = $_POST['client'];
@@ -122,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
             header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete-$msg");
             exit;
         }
-    
+    */
 }
 
 ?>

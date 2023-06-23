@@ -73,7 +73,7 @@ if(isset($_GET['id']))
     }
 
 }else{
-    echo "sem iD";
+    header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=noId");
 }
 
 $links = array(
@@ -133,6 +133,10 @@ if(empty($returnedEntity['fotoUrl'])){
                             <form action='./controller/update.php' method='post' enctype="multipart/form-data">
                                 <?php
                                 if($tableName === "arquitetos"){
+                                    if($_GET['edit'] == 'true'){
+                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontuacao", "Pontos", $readonly);
+                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "arquiteto", "Nome", $readonly);
+                                    }
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpfCnpj", "CPF/CNPJ", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
