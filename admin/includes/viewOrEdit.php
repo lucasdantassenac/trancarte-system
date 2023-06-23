@@ -40,10 +40,11 @@ if(isset($_GET['id']))
             break;
 
         case 'pedidos':
-            $query = ("SELECT $tableName.*, arquitetos.arquiteto, vendedores.vendedor 
+            $query = "SELECT pedidos.*, arquitetos.*, vendedores.*
+                FROM pedidos 
                 INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto 
-                INNER JOIN vendedores ON pedidos.idVendedor = vendedores.idVendedor
-                WHERE idPedido = $id ");
+                INNER JOIN vendedores ON pedidos.idVendedor = vendedores.idVendedor                    
+                WHERE pedidos.status = 'a' ORDER BY arquitetos.arquiteto DESC;";
 
             $nome = "pedido";
             $points = 'pontos';
@@ -53,7 +54,7 @@ if(isset($_GET['id']))
         case 'vendedores':
             $query = ("SELECT * FROM $tableName WHERE idVendedor = $id");
             $nome = "vendedor";
-        break;
+            break;
 
         case 'downloads':
             $query = ("SELECT * FROM $tableName WHERE id = $id");
@@ -165,38 +166,44 @@ function seleciona ($mysqli, $sql) {
                                     if($_GET['edit'] == 'true'){
                                         echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontuação", $readonly);
                                     }
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pedido", "N° do pedido", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cliente", "Cliente", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "valor", "Valor", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "data", "Data do pedido", $readonly, 'date');
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
                                 ?>
-                                    <label for='orderSeller'>Vendedor</label>
-                                    <select class='i50' name='orderSeller' id='seller'>
-                                        <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  
-                                            $selected = "";
-                                            if($SellersNames['idVendedor'] == $returnedEntity['idVendedor'] ){
-                                                $selected = 'selected';
-                                            }    
-                                        ?>
-                                            <option class='i50' value="<?php echo $SellersNames['idVendedor']; echo $selected;?>"> 
-                                                <?php echo $SellersNames['vendedor'] .' - '. $SellersNames['email'];?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
+                                    <div class='dataItemDiv'>
+                                        <label for='orderSeller' class='h5' >Vendedor</label>
+                                        <select class='i50' name='orderSeller' id='seller' <?php echo $disabled;?> >
+                                            <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  
+                                                $selected = "";
+                                                if($SellersNames['idVendedor'] == $returnedEntity['idVendedor'] ){
+                                                    $selected = 'selected';
+                                                }    
+                                            ?>
+                                                <option class='i50' value="<?php echo $SellersNames['idVendedor']; echo $selected;?>"> 
+                                                    <?php echo $SellersNames['vendedor'] .' - '. $SellersNames['email'];?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class='dataItemDiv'>
+                                        <label for='orderArchitect' class='h5' >Arquiteto*</label>
+                                        <select class='i50' name='orderArchitect' id='orderArchitect' required <?php echo $disabled;?>>
+                                            <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){
+                                                $selected = "";
+                                                if($architectNames['idVendedor'] == $returnedEntity['idArquiteto'] ){
+                                                    $selected = 'selected';
+                                                }   
+                                            ?>
+                                                <option class='i50' value="<?php echo $architectNames['idArquiteto']; echo $selected;?>"> 
+                                                    <?php echo $architectNames['arquiteto'] .' - '. $architectNames['email']; ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
             
-                                    <label for='orderArchitect'>Arquiteto*</label>
-                                    <select class='i50' name='orderArchitect' id='orderArchitect' required>
-                                        <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){
-                                            $selected = "";
-                                            if($architectNames['idVendedor'] == $returnedEntity['idArquiteto'] ){
-                                                $selected = 'selected';
-                                            }   
-                                        ?>
-                                            <option class='i50' value="<?php echo $architectNames['idArquiteto']; echo $selected;?>"> 
-                                                <?php echo $architectNames['arquiteto'] .' - '. $architectNames['email']; ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
+                                    
                                 <?php
                                     if($_GET['edit'] == 'true'){
                                 ?>  
