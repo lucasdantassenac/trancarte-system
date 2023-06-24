@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         if ($stmt->execute()) {
             $stmt->store_result();
 
-            header("location: ../../home.php?architect=sucess");
+            header("location: ../../consultarArquiteto.php?architect=sucess");
         } else {
-            header("location: ../../home.php?architect=error");
+            header("location: ../../consultarArquiteto.php?architect=error");
         }
                 // Fecha a conexão
         $stmt->close();
