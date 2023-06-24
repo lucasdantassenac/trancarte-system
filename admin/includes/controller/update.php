@@ -36,17 +36,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $dadosBancarios = $_POST['dadosBancarios'];
         $pontuacao = $_POST['pontuacao'];
 
-        $stmt = $mysqli->prepare('UPDATE arquitetos SET arquiteto=?, pontuacao=? email=?, senha=?, dataCadastro=?, cpfCnpj=?, rg=?, pis=?, nascimento=?, filiacao=?, telefone=?, emailPremium=?, endereco=?, dadosBancarios=? WHERE id=?');
-        $stmt->bind_param('sdssssssssssssi', $arquiteto, $pontuacao, $email, $senha, $dataCadastro, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios, $id);
+        echo $arquiteto. "<br>";
+        echo $email. "<br>";
+        echo $cpfCnpj. "<br>";
+        echo $rg. "<br>";
+        echo $pis. "<br>";
+        echo $nascimento. "<br>";
+        echo $filiacao. "<br>";
+        echo $telefone. "<br>";
+        echo $emailPremium. "<br>";
+        echo $endereco. "<br>";
+        echo $dadosBancarios. "<br>";
+        echo $pontuacao. "<br>";
+
+        $stmt = $mysqli->prepare('UPDATE arquitetos SET arquiteto=?, pontuacao=?, email=?, cpfCnpj=?, rg=?, pis=?, nascimento=?, filiacao=?, telefone=?, emailPremium=?, endereco=?, dadosBancarios=? WHERE idArquiteto=?');
+        $stmt->bind_param('sdssssssssssi', $arquiteto, $pontuacao, $email,  $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios, $id);
 
         // Executa a consulta
         if ($stmt->execute()) {
             $stmt->store_result();
 
-            echo 'Arquiteto editado  com sucesso!';
-            #header("location: ../../home.php?architect=sucess");
+            header("location: ../../home.php?architect=sucess");
         } else {
-            #header("location: ../../home.php?architect=error");
+            header("location: ../../home.php?architect=error");
         }
                 // Fecha a conexão
         $stmt->close();
@@ -65,31 +77,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
             $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
         
-        }elseif($tableName === 'vendedores'){
-            
-            $sellerName = $_POST['name'];
-            $user = $_POST['user'];
-            $cpfCnpj = $_POST['cpf'];
-            $rg = $_POST['rg'];
-            $email = $_POST['email'];
-            $password = md5($_POST['password']);
-            $registerDate = date('Y-m-d H:m:s'); 
+    }elseif($tableName === 'vendedores'){
+        
+        $sellerName = $_POST['name'];
+        $user = $_POST['user'];
+        $cpfCnpj = $_POST['cpf'];
+        $rg = $_POST['rg'];
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
+        $registerDate = date('Y-m-d H:m:s'); 
 
-            $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
+        $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
 
-        }elseif($tableName === 'downloads'){
-            
-            $_FILES['file']['name'] = $codigo. "-" . $_FILES['file']['name'];
-            $target_dir = $pathUrl."files/downloads/";
-            $target_file = $target_dir.basename($_FILES["file"]["name"]);
-            $uploadOk = 1;
-            $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $fileName = $_FILES['file']['name'];
-            $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
-            $searchDownload = "SELECT * FROM downloads WHERE id = ?";
-        }
-        require_once '../../includes/conexao.php';
-
+    }elseif($tableName === 'downloads'){
+        
+        $_FILES['file']['name'] = $codigo. "-" . $_FILES['file']['name'];
+        $target_dir = $pathUrl."files/downloads/";
+        $target_file = $target_dir.basename($_FILES["file"]["name"]);
+        $uploadOk = 1;
+        $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $fileName = $_FILES['file']['name'];
+        $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
+        $searchDownload = "SELECT * FROM downloads WHERE id = ?";
         try {
             $stmt = $mysqli->prepare($query);
             $stmt->bind_param('i',  $id);
@@ -123,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                     }
                 }
                 header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-sucessfull-deleted");
-
+    
             }else{
                 header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete");
             }
@@ -136,5 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete-$msg");
             exit;
         }
+    }
+
+    
 }
 ?>
