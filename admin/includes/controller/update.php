@@ -66,29 +66,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     }
     elseif($tableName === 'pedidos'){
            
-            $orderNumber = $_POST['order'];
-            $clientName = $_POST['client'];
-            $orderDate = date('Y-m-d H:m', strtotime($_POST['date'])); 
-            $orderValue = $_POST['value'];
-            $points = $_POST['points'];
-            $sellerId = $_POST['orderSeller'];
+            $orderNumber = $_POST['pedido'];
+            $clientName = $_POST['cliente'];
+            $orderDate = date('Y-m-d H:m', strtotime($_POST['data'])); 
+            $orderValue = $_POST['valor'];
+            $points = $_POST['pontos'];
             $architectId = $_POST['orderArchitect'];
-            $registerDate = date('Y-m-d H:m:s'); 
-
-            $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
+            $sellerId = $_POST['orderSeller'];
+            $orderId = $_POST['id'];
+            
+            $stmt = $mysqli->prepare('UPDATE pedidos SET pedido=?, cliente=?, data=?, valor=?, pontos=?, idArquiteto=?, idVendedor=? WHERE idPedido=?');
+            $stmt->bind_param('issddiii', $orderNumber, $clientName, $orderDate, $orderValue, $points, $architectId, $sellerId, $orderId);
+    
+            // Executa a consulta
+            if ($stmt->execute()) {
+                $stmt->store_result();
+    
+                header("location: ../../consultarPedido.php?order=sucess");
+            } else {
+                header("location: ../../consultarPedido.php?order=error");
+            }
+                    // Fecha a conexão
+            $stmt->close();
+            $mysqli->close();
         
     }elseif($tableName === 'vendedores'){
         
-        $sellerName = $_POST['name'];
-        $user = $_POST['user'];
+        $sellerName = $_POST['vendedor'];
+        $user = $_POST['usuario'];
         $cpfCnpj = $_POST['cpf'];
         $rg = $_POST['rg'];
         $email = $_POST['email'];
-        $password = md5($_POST['password']);
-        $registerDate = date('Y-m-d H:m:s'); 
 
-        $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
+        try {
+            $stmt = $mysqli->prepare("SELECT * FROM vendedores WHERE email = ? OR usuario = ? AND status = 'a'");
+            $stmt->bind_param('ss', $email, $user);
+            $stmt->execute();
+            $stmt->store_result();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        
+        if($stmt->num_rows > 0){
+            header("location: ../../home.php?error=user_data_exists");
+        }
+    
+        else{
+            $stmt = $mysqli->prepare('UPDATE vendedores SET vendedor=?, usuario=?, cpf=?, rg=?, email=? WHERE idVendedor=?');
+            $stmt->bind_param('sssssi', $sellerName, $user, $cpfCnpj, $rg, $email, $id);
 
+            // Executa a consulta
+            if ($stmt->execute()) {
+                $stmt->store_result();
+
+                header("location: ../../consultarVendedor.php?seller=sucess");
+            } else {
+                header("location: ../../consultarVendedor.php?seller=error");
+            }
+                    // Fecha a conexão
+            $stmt->close();
+            $mysqli->close();
+        }
     }elseif($tableName === 'downloads'){
         
         $_FILES['file']['name'] = $codigo. "-" . $_FILES['file']['name'];
