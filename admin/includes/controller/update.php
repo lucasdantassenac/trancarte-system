@@ -22,22 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if($tableName === 'arquitetos'){
 
-        $arquiteto = $_POST['nome'];
-        $email = $_POST['email'];
-        $senha = md5($_POST['password']);
-        $dataCadastro = date('Y-m-d H:m:s'); 
         #$fotoUrl = isset($_FILES['file']['name'])? $url = $url . 'files/downloads/' . $_FILES['file']['name'] : $url."logo.png";
-        $cpfCnpj = $_POST['cpf'];
+        $arquiteto = $_POST['arquiteto'];
+        $email = $_POST['email'];
+        $cpfCnpj = $_POST['cpfCnpj'];
         $rg = $_POST['rg'];
         $pis = $_POST['pis'];
-        $nascimento = date('Y-m-d', strtotime($_POST['birthday'])); 
-        $filiacao = $_POST['filiation'];
-        $telefone = $_POST['phone'];
-        $emailPremium = $_POST['email-premium'];
-        $endereco = $_POST['address'];
-        $dadosBancarios = $_POST['bank'];
-        $pontuacao = $_POST['pontuacao'];}
-/*
+        $nascimento = date('Y-m-d', strtotime($_POST['nascimento'])); 
+        $filiacao = $_POST['filiacao'];
+        $telefone = $_POST['telefone'];
+        $emailPremium = $_POST['emailPremium'];
+        $endereco = $_POST['endereco'];
+        $dadosBancarios = $_POST['dadosBancarios'];
+        $pontuacao = $_POST['pontuacao'];
 
         $stmt = $mysqli->prepare('UPDATE arquitetos SET arquiteto=?, pontuacao=? email=?, senha=?, dataCadastro=?, cpfCnpj=?, rg=?, pis=?, nascimento=?, filiacao=?, telefone=?, emailPremium=?, endereco=?, dadosBancarios=? WHERE id=?');
         $stmt->bind_param('sdssssssssssssi', $arquiteto, $pontuacao, $email, $senha, $dataCadastro, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios, $id);
@@ -54,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                 // Fecha a conexão
         $stmt->close();
         $mysqli->close();
-
     }
     elseif($tableName === 'pedidos'){
            
@@ -140,7 +136,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete-$msg");
             exit;
         }
-    */
 }
-
 ?>
