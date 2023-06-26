@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('session.gc_maxlifetime', 3600); // 1 hora
 ini_set('session.cookie_lifetime', 3600);
 session_start();
-
+$url = 'https://' . rtrim($_SERVER['SERVER_NAME'], '/') . '/' ."novosistemaarquitetos/admin/";
 if(!isset($codigo) || $_SESSION['userType'] != "admin")
 {
     header($url."?error=not-logged-in");
@@ -12,26 +12,30 @@ if(!isset($codigo) || $_SESSION['userType'] != "admin")
 if(isset($_GET['id'])){
     $id = intval($_GET['id']);
     $tableName = $_GET['table'];
-
+    $redirectTo = 'home.php';
     $query = 0;
     switch ($tableName) {
         case 'arquitetos':
             $query = ("UPDATE arquitetos SET status = 'd' WHERE idArquiteto = ? AND status = 'a' OR status = 'b'");
+            $redirectTo = 'consultarArquiteto.php';
+            
             break;
 
         case 'pedidos':
             $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
-
+            $redirectTo = 'consultarPedido.php';
+            
         break;
 
         case 'vendedores':
             $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
-
+            $redirectTo = 'consultarVendedor.php';
         break;
 
         case 'downloads':
             $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
             $searchDownload = "SELECT * FROM downloads WHERE id = ?";
+            $redirectTo = 'consultarDownload.php';
         break; 
         
         default:
@@ -46,7 +50,7 @@ if(isset($_GET['id'])){
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param('i',  $id);
         if($stmt->execute()){
-                if($tableName === "downloads"){
+            if($tableName === "downloads"){
                 $stmt->store_result();
                 $stmt->prepare($searchDownload);
                 $stmt->bind_param('i', $id);
@@ -69,15 +73,15 @@ if(isset($_GET['id'])){
                     }
                 }
                 if($removed === 1 ){
-                    header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-sucessfull-deleted");
+                    header("location:" . $url . "$redirectTo?delete=$tableName-sucessfull-deleted");
                 }else{
-                    header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-err_on_remove");
+                    header("location:" . $url . "$redirectTo?delete=$tableName-err_on_remove");
                 }
             }
-            header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-sucessfull-deleted");
+            header("location:" . $url . "$redirectTo?delete=$tableName-sucessfull-deleted");
 
         }else{
-            header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete");
+            header("location:" . $url . "$redirectTo?delete=$tableName-error-on-delete");
         }
         $stmt->store_result();
         $stmt->close();
@@ -85,7 +89,7 @@ if(isset($_GET['id'])){
         exit;
     } catch (\Exception $th) {
         $msg = $th->getMessage();
-        header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete-$msg");
+        header("location:" . $url . "$redirectTo?delete=$tableName-error-on-delete-$msg");
         exit;
     }
    
