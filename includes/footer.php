@@ -37,6 +37,6 @@
             </div>  
         </div>
     </footer>
-    <script defer src='../assets/js/openPopUp.js'></script>
+    <script defer src='<?php echo $url ;?>assets/js/openPopUp.js'></script>
 </body>
 </html>

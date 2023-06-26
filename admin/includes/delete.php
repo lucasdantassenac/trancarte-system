@@ -46,7 +46,7 @@ if(isset($_GET['id'])){
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param('i',  $id);
         if($stmt->execute()){
-            if($tableName === "downloads"){
+                if($tableName === "downloads"){
                 $stmt->store_result();
                 $stmt->prepare($searchDownload);
                 $stmt->bind_param('i', $id);

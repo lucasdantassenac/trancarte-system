@@ -13,6 +13,7 @@
     background-color:#ddd;
 }
 
-.btnUpdate{
+.btnUpdate, .btnEdit{
     background-color:#fff;
+    color:var(--primary);
 }

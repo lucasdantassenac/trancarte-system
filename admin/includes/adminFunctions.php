@@ -1,7 +1,8 @@
 <?php 
 function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "", $type = 'text'){
     $bg = "";
-    if((isset($array[$index]) && !empty($array[$index]) && isset($title)) || $edit == 'true')
+    
+    if((isset($array[$index]) && (!empty($array[$index]) XOR $array[$index] == 0) && isset($title)) || $edit == 'true')
     {
         if($index === "dataCadastro" ){
            $readonly = "readonly";
@@ -13,7 +14,7 @@ function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "",
         "
         <div class ='dataItemDiv'>
             <label for='$index' class='h5'>$title</label>
-            <input name='input' type='$type' class='$bg' value='". $array[$index] ."' $readonly>
+            <input name='$index' type='$type' class='$bg' value='". $array[$index] ."' $readonly>
         </div>
         ";
         return true;

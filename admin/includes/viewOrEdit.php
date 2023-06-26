@@ -13,13 +13,16 @@ if(!isset($codigo) || $_SESSION['userType'] != "admin")
 
 $id = "";
 $readonly = "readonly";
+$disabled = "disabled";
 $tableName;
 $query = 0;
+$nome;
+$points;
 
 if(isset($_GET['id']))
 {
     $id = $_GET['id'];
-    if($_GET['edit'] == 'true') $readonly = "";
+    if($_GET['edit'] == 'true') {$readonly = ""; $disabled="";}
     
     if(!isset($_GET['table']) || empty($_GET['table'])){
         echo "sem tabela";
@@ -31,22 +34,36 @@ if(isset($_GET['id']))
     
     switch ($tableName) {
         case 'arquitetos':
-            $query = ("SELECT * FROM $tableName WHERE idArquiteto = $id");
+            $query = ("SELECT * FROM $tableName WHERE idArquiteto = $id AND status='a' ");
+            $nome = "arquiteto";
+            $nameOf = "Nome do(a) arquiteto(a)";
+            $points = 'pontuacao';
             break;
 
         case 'pedidos':
-            $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
+            $query = "SELECT pedidos.*, arquitetos.*, vendedores.*
+                FROM pedidos 
+                INNER JOIN arquitetos ON pedidos.idArquiteto = arquitetos.idArquiteto 
+                INNER JOIN vendedores ON pedidos.idVendedor = vendedores.idVendedor                    
+                WHERE idPedido = $id AND  pedidos.status = 'a' 
+                ORDER BY arquitetos.arquiteto DESC;";
+
+            $nome = "pedido";
+            $nameOf = "Número do pedido";
+            $points = 'pontos';
 
         break;
 
         case 'vendedores':
-            $query = ("UPDATE vendedores SET status = 'd' WHERE idVendedor = ? AND status = 'a' OR status = 'b'");
-
-        break;
+            $query = ("SELECT * FROM $tableName WHERE idVendedor = $id AND status='a'");
+            $nome = "vendedor";
+            $nameOf = "Nome do(a) vendedor(a)";
+            break;
 
         case 'downloads':
-            $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
-            $searchDownload = "SELECT * FROM downloads WHERE id = ?";
+            $query = ("SELECT * FROM $tableName WHERE id = $id AND status='a' ");
+            $nome = "nome";
+            $nameOf = "Download:";
         break; 
         
         default:
@@ -56,7 +73,7 @@ if(isset($_GET['id']))
     }
 
 }else{
-    echo "sem iD";
+    header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=noId");
 }
 
 $links = array(
@@ -73,31 +90,33 @@ include_once '../includes/header.php';
 include_once '../../includes/functions.php';
 include_once './adminFunctions.php';
 
-$selecionaArquiteto = mysqli_query($mysqli, $query); //executa a sql com base na conexão criada
-$arquiteto = mysqli_fetch_array($selecionaArquiteto, MYSQLI_ASSOC);
-if(empty($arquiteto['fotoUrl'])){
-    $arquiteto['fotoUrl'] = "logo.png";
+$selectEntity = mysqli_query($mysqli, $query); //executa a sql com base na conexão criada
+$returnedEntity = mysqli_fetch_array($selectEntity, MYSQLI_ASSOC);
+if(empty($returnedEntity['fotoUrl'])){
+    $returnedEntity['fotoUrl'] = "logo.png";
 }
 
-function seleciona ($mysqli, $sql) {
-    $queryResult = mysqli_query($mysqli, $sql);
-    return $queryResult;
-}
+// function seleciona ($mysqli, $sql) {
+//     $queryResult = mysqli_query($mysqli, $sql);
+//     return $queryResult;
+// }
 ?>
     <main>
         <section class='banner'>
             <div class='overlay'></div>
             <div class='limiter'>
-            <div class="row">
+                <div class="row">
                     <div class='col c60'>
-                        <p class='h5 w z1'>Arquiteto(a):</p>
-                        <h1 class='h1'><?php echo $arquiteto['arquiteto']; ?></h1>
+                        <p class='h5 w z1'><?php echo $nameOf; ?> </p>
+                        <h1 class='h1'><?php echo $returnedEntity[$nome]; ?></h1>
                     </div>
                     <div class='col colRight c40'>
+                        <?php if ($tableName === 'arquitetos' || $tableName === "pedidos"){?>
                         <div class='pointsDiv tc'>
                             <h2 class='h5'>Pontuação:</h2>
-                            <p class='pointsText b h3'><?php echo $arquiteto['pontuacao'];?></p>
+                            <p class='pointsText b h3'><?php echo $returnedEntity[$points];?></p>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -106,34 +125,97 @@ function seleciona ($mysqli, $sql) {
             <div class='limiter'>
                 <div class='row'>
                     <div class='col c60'>
-                        <img src='<?php echo $url. "files/architect-images/". $arquiteto['fotoUrl'] ;?>' class="profilePhoto">
+                        <img src='<?php echo $url. "files/architect-images/". $returnedEntity['fotoUrl'] ;?>' class="profilePhoto">
                     </div>
                     <div class='col colRight c40'>
                         <div class='dataDiv w'>
                             <h2 class='h2'>Dados</h2>
                             <form action='./controller/update.php' method='post' enctype="multipart/form-data">
                                 <?php
+                                if($tableName === "arquitetos"){
                                     if($_GET['edit'] == 'true'){
-                                        echoIfIssetAdmin($_GET['edit'], $arquiteto, "pontuacao", "Pontuação", $readonly);
+                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontuacao", "Pontos", $readonly);
+                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "arquiteto", "Nome", $readonly);
                                     }
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "email", "E-mail", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "cpfCnpj", "CPF/CNPJ", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "rg", "RG", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "pis", "PIS", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "nascimento", "Data de Nascimento", $readonly, 'date');
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "filiacao", "Filiação", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "telefone", "Telefone", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "emailPremium", "E-mail premium", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "endereco", "Endereço", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "dadosBancarios", "Dados bancários", $readonly);
-                                    echoIfIssetAdmin($_GET['edit'], $arquiteto, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
-                                
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpfCnpj", "CPF/CNPJ", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pis", "PIS", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nascimento", "Data de Nascimento", $readonly, 'date');
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "filiacao", "Filiação", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "telefone", "Telefone", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "emailPremium", "E-mail premium", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "endereco", "Endereço", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dadosBancarios", "Dados bancários", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
+                                }
+                                elseif($tableName === "vendedores"){
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "vendedor", "Vendedor", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "usuario", "Usuário", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpf", "CPF", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
+                                }
+                                elseif($tableName === "pedidos"){
                                     if($_GET['edit'] == 'true'){
+                                        echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pontos", "Pontos", $readonly);
+                                    }
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pedido", "N° do pedido", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cliente", "Cliente", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "valor", "Valor", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "data", "Data do pedido", $readonly, 'date');
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
                                 ?>
-                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>
+                                    <div class='dataItemDiv'>
+                                        <label for='orderSeller' class='h5' >Vendedor</label>
+                                        <select class='i50' name='orderSeller' id='seller' <?php echo $disabled;?> >
+                                            <?php while ($SellersNames = mysqli_fetch_array($selectAllSellers, MYSQLI_ASSOC)){  
+                                                $selected = "";
+                                                if($SellersNames['idVendedor'] == $returnedEntity['idVendedor'] ){
+                                                    $selected = 'selected';
+                                                }    
+                                            ?>
+                                                <option class='i50' value="<?php echo $SellersNames['idVendedor']; echo $selected;?>"> 
+                                                    <?php echo $SellersNames['vendedor'] .' - '. $SellersNames['email'];?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class='dataItemDiv'>
+                                        <label for='orderArchitect' class='h5' >Arquiteto*</label>
+                                        <select class='i50' name='orderArchitect' id='orderArchitect' required <?php echo $disabled;?>>
+                                            <?php while ($architectNames = mysqli_fetch_array($selectAllarchitects, MYSQLI_ASSOC)){
+                                                $selected = "";
+                                                if($architectNames['idVendedor'] == $returnedEntity['idArquiteto'] ){
+                                                    $selected = 'selected';
+                                                }   
+                                            ?>
+                                                <option class='i50' value="<?php echo $architectNames['idArquiteto']; echo $selected;?>"> 
+                                                    <?php echo $architectNames['arquiteto'] .' - '. $architectNames['email']; ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
                                 <?php
-                                    }
+                                }
+                                elseif($tableName === "downloads"){
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nome", "Nome", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "nomeDoArquivo", "nome do arquivo", 'readonly');
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "url", "Url", 'readonly');
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
+                                }
+                                if($_GET['edit'] == 'true'){
                                 ?>
+                                    <input type='hidden' name='table' value='<?php echo $tableName ;?>'>
+                                    <input type='hidden' name='id' value='<?php echo $id ;?>'>
+
+                                    <input type='submit' class='btn btnUpdate mt2' value='Atualizar'>   
+                                <?php }else{ ?>
+                                    <div class='divBtnEdit mt2'>
+                                        <a href='<?php $url?>viewOrEdit.php?<?php echo "id=$id&table=$tableName&edit=true";?>' class='btn btnEdit mt2'> Editar</a> 
+                                    </div>
+                                <?php } ?>
                             </form>
                         </div>
                     </div>

@@ -45,6 +45,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                             <th>Nome</th>
                             <th>E-mail</th>
                             <th class='date-th'>Data de cadastro</th>
+                            <th class='date-th'>Pontos</th>
                             <th>Controles</th>
                         </tr>
                     </thead>
@@ -57,6 +58,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                             <td><?php echo $exibe['arquiteto'] ?></td>
                             <td><?php echo $exibe['email'] ?></td>
                             <td><?php echo formatTime("d/m/Y", $exibe['dataCadastro']);?></td>
+                            <td><?php echo $exibe['pontuacao'] ?></td>
                             <td>
                                 <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idArquiteto'] ?>&edit=false&table=arquitetos"><span class="material-symbols-outlined">visibility</span></a>
                                 <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idArquiteto'] ?>&edit=true&table=arquitetos"><span class="material-symbols-outlined"> edit </span></a>
