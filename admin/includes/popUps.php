@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="inputDiv c33">
-                        <label for='password'>Senha provisória*</label>
-                        <input type='password' name='password' id='architectPassword' required>
+                        <label for='architectPassword'>Senha provisória*</label>
+                        <input type='password' name='architectPassword' id='architectPassword' required>
                     </div>
                     <div class="inputDiv c100 btnDiv">
                         <input type='submit' class='btn seeMore c100' value='Cadastrar'>
