@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $endereco = $_POST['address'];
     $dadosBancarios = $_POST['bank'];
     
-    if (isset($_FILES['photo'])) {
+    if (isset($_FILES['photo']) && !empty($_FILES['photo'])) {
         $err = "";
         $_FILES['photo']['name'] = $cpfCnpj. "-" . $_FILES['photo']['name'];
 
