@@ -60,63 +60,80 @@ include_once 'includes/functions.php';
             <div class='limiter'>
                 <div class='row'>
                     <div class='col c33'>
-                        <h3>Ultimos pedidos adicionados</h3>
                         <h2 class='h4'>Pedidos</h2>
                         <table> 
                             <thead>
                                 <tr class='thead'>
                                     <th>Pedido</th>
-                                    <th>Cliente</th>
-                                    <th>Data</th>
-                                    <th>Valor</th>
                                     <th>Pontos</th>
+                                    <?php if($_SESSION['userData'] === 'admin'):?>
+                                        <th> </th>
+                                    <?php endif ?>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while ($exibe = mysqli_fetch_array($selecionaPedido, MYSQLI_ASSOC)){  ?>
                                     <tr class='tcontent'>
                                         <td><?php echo $exibe['pedido']; ?></td>
-                                        <td><?php custom_echo($exibe['cliente'], 25); ?></td>
-                                        <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
-                                        <td><?php echo $exibe['valor']; ?></td> 
                                         <td><?php echo $exibe['pontos']; ?></td> 
+                                        <?php if($_SESSION['userData'] === 'admin'):?>
+                                            <td> <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idPedido'] ?>&table=pedidos&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                        <?php endif ?>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
-                        <a href='./consultarArquiteto.php' class='btn seeMore'>Ver todos</a>
                     </div>
                     <div class='col c33'>
-                        <h3>Ultimos arquitetos adicionados</h3>
+                        <h2 class='h4'>Arquitetos</h2>
                         <table> 
+                            <thead>
+                                <tr class='thead'>
+                                    <th>Arquiteto</th>
+                                    <th>Pontos</th>
+                                    <?php if($_SESSION['userData'] === 'admin'):?>
+                                        <th> </th>
+                                    <?php endif ?>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php while ($exibe = mysqli_fetch_array($selecionaArquiteto, MYSQLI_ASSOC)){  ?>
                                     <tr class='tcontent'>
                                         <td><?php custom_echo($exibe['arquiteto'], 25); ?></td>
+                                        <td><?php echo $exibe['pontuacao']; ?></td>
+                                        <?php if($_SESSION['userData'] === 'admin'):?>
+                                            <td> <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idArquiteto'] ?>&edit=false&table=arquitetos"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                        <?php endif ?>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
-                        <a href='./consultarArquiteto.php' class='btn seeMore'>Ver todos</a>
                     </div>
                     <div class='col c33'>
-                        <h3>Ultimos vendedores adicionados</h3>
+                        <h2 class='h4'>Vendedor</h2>
                         <table> 
+                            <thead>
+                                <tr class='thead'>
+                                    <th>Vendedor</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php foreach ($selecionaVendedor as $index => $vendedor) {?>
                                     <tr class='tcontent'>
                                         <td><?php custom_echo($vendedor['vendedor'], 25); ?></td>
+                                        <?php if($_SESSION['userData'] === 'admin'):?>
+                                            <td><a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                        <?php endif ?>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
-                        <a href='./consultarVendedor.php' class='btn seeMore'>Ver todos</a>
                     </div>
                 </div>
             </div>
         </section>
 <?php
-    require_once '../includes/footer.php';
+    require_once './includes/footer.php';
 ?>
 
 
