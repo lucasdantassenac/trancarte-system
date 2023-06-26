@@ -129,58 +129,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         }
     }elseif($tableName === 'downloads'){
         
-        $_FILES['file']['name'] = $codigo. "-" . $_FILES['file']['name'];
-        $target_dir = $pathUrl."files/downloads/";
-        $target_file = $target_dir.basename($_FILES["file"]["name"]);
-        $uploadOk = 1;
-        $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        $fileName = $_FILES['file']['name'];
-        $query = ("UPDATE downloads SET status = 'd' WHERE id = ? AND status = 'a' OR status = 'b'");
-        $searchDownload = "SELECT * FROM downloads WHERE id = ?";
+        $fileName = $_POST['nome'];
         try {
-            $stmt = $mysqli->prepare($query);
-            $stmt->bind_param('i',  $id);
-            if($stmt->execute()){
-                if($tableName === "downloads"){
-                    $stmt->store_result();
-                    $stmt->prepare($searchDownload);
-                    $stmt->bind_param('i', $id);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-                    $pathUrl = "/var/www/vhosts/".$_SERVER['SERVER_NAME'] . '/httpdocs/novosistemaarquitetos/';
-                    $fileName = 0;
-                    $removed = 0;
-                    while ($row = $result->fetch_array(MYSQLI_NUM)) {
-                        $fileName = $row[6];
-                        if(!$fileName || $fileName == null || !isset($fileName) || empty($fileName)){
-                            echo "vazio";
-                            $fileName = false;
-                            header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=filename_error");
-                        }elseif($fileName != false){
-                            if(unlink($pathUrl."files/downloads/".$fileName)){
-                                $removed = 1 ;
-                            }
-                                
-                        }
-                    }
-                    if($removed === 1 ){
-                        header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-sucessfull-deleted");
-                    }else{
-                        header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-err_on_remove");
-                    }
-                }
-                header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-sucessfull-deleted");
-    
-            }else{
-                header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete");
+            $stmt = $mysqli->prepare("UPDATE downloads SET 'nomeDoArquivo' = ? WHERE id = ?");
+            $stmt->bind_param('si',  $fileName, $id);
+
+            if ($stmt->execute()) {
+                $stmt->store_result();
+                header("location: ../../consultarPedido.php?order=sucess");
+            } else {
+                $stmt->store_result();
+                header("location: ../../consultarPedido.php?order=error");
             }
-            $stmt->store_result();
+
+            // Fecha a conexão
             $stmt->close();
             $mysqli->close();
             exit;
         } catch (\Exception $th) {
             $msg = $th->getMessage();
-            header("location:" . $_SERVER['HTTP_REFERER'] . "?delete=$tableName-error-on-delete-$msg");
+            header("location:" . $_SERVER['HTTP_REFERER'] . "?download=$tableName-error-on-download-$msg");
             exit;
         }
     }
