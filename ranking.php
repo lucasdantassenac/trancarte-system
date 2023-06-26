@@ -59,14 +59,14 @@ include_once 'includes/functions.php';
         <section class='flexCenter pv'>
             <div class='limiter'>
                 <div class='row'>
-                    <div class='col c33'>
+                    <div class='col c40'>
                         <h2 class='h4'>Pedidos</h2>
                         <table> 
                             <thead>
                                 <tr class='thead'>
                                     <th>Pedido</th>
                                     <th>Pontos</th>
-                                    <?php if($_SESSION['userData'] === 'admin'):?>
+                                    <?php if($_SESSION['userType'] === 'admin'):?>
                                         <th> </th>
                                     <?php endif ?>
                                 </tr>
@@ -76,22 +76,22 @@ include_once 'includes/functions.php';
                                     <tr class='tcontent'>
                                         <td><?php echo $exibe['pedido']; ?></td>
                                         <td><?php echo $exibe['pontos']; ?></td> 
-                                        <?php if($_SESSION['userData'] === 'admin'):?>
-                                            <td> <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idPedido'] ?>&table=pedidos&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                        <?php if($_SESSION['userType'] === 'admin'):?>
+                                            <td> <a href="./admin/includes/viewOrEdit.php?id=<?php echo $exibe['idPedido'] ?>&table=pedidos&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
                                         <?php endif ?>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
                     </div>
-                    <div class='col c33'>
+                    <div class='col c40'>
                         <h2 class='h4'>Arquitetos</h2>
                         <table> 
                             <thead>
                                 <tr class='thead'>
                                     <th>Arquiteto</th>
                                     <th>Pontos</th>
-                                    <?php if($_SESSION['userData'] === 'admin'):?>
+                                    <?php if($_SESSION['userType'] === 'admin'):?>
                                         <th> </th>
                                     <?php endif ?>
                                 </tr>
@@ -101,15 +101,15 @@ include_once 'includes/functions.php';
                                     <tr class='tcontent'>
                                         <td><?php custom_echo($exibe['arquiteto'], 25); ?></td>
                                         <td><?php echo $exibe['pontuacao']; ?></td>
-                                        <?php if($_SESSION['userData'] === 'admin'):?>
-                                            <td> <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idArquiteto'] ?>&edit=false&table=arquitetos"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                        <?php if($_SESSION['userType'] === 'admin'):?>
+                                            <td> <a href="./admin/includes/viewOrEdit.php?id=<?php echo $exibe['idArquiteto'] ?>&edit=false&table=arquitetos"><span class="material-symbols-outlined">visibility</span></a> </td>
                                         <?php endif ?>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
                     </div>
-                    <div class='col c33'>
+                    <div class='col c20'>
                         <h2 class='h4'>Vendedor</h2>
                         <table> 
                             <thead>
@@ -121,8 +121,8 @@ include_once 'includes/functions.php';
                                 <?php foreach ($selecionaVendedor as $index => $vendedor) {?>
                                     <tr class='tcontent'>
                                         <td><?php custom_echo($vendedor['vendedor'], 25); ?></td>
-                                        <?php if($_SESSION['userData'] === 'admin'):?>
-                                            <td><a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                        <?php if($_SESSION['userType'] === 'admin'):?>
+                                            <td><a href="./admin/includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
                                         <?php endif ?>
                                     </tr>
                                 <?php } ?>
