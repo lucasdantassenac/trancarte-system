@@ -30,7 +30,7 @@
                     <li class='nav-btn <?php echo $pedidos;?>'><a href='<?php echo $url;?>admin/consultarPedido.php'>Pedidos</a></li>
                     <li class='nav-btn <?php echo $downloads;?>'><a href='<?php echo $url;?>admin/consultarDownload.php'>Downloads</a></li>
                     <li class='nav-btn'><a href='<?php echo $url;?>sair.php'>sair</a></li>
-                    <li class='nav-btn btn'><a href='#'>Ranking</a></li>
+                    <li class='nav-btn btn'><a href='../ranking.php'>Ranking</a></li>
                 </ul>
             </nav>
         </div>
