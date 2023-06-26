@@ -99,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param('ssssssssssssss', $arquiteto, $email, $senha, $dataCadastro, $fotoUrl, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios);
     
         // Executa a consulta
-         /*
         if ($stmt->execute()) {
             $stmt->store_result();
 
@@ -107,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("location: ../../home.php?architect=sucess");
         } else {
             header("location: ../../home.php?architect=error");
-        }*/
+        }
     }
     
     // Fecha a conexão
