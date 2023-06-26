@@ -17,7 +17,7 @@ require_once './includes/head.php';
     <div class='acess-div'>
         <h1 class='h3'>Acesso do arquiteto</h1>
         <div class="box-login">
-            <form action="verificaLogin.php" method="post" name="form1" >
+            <form action="architectLoginValidate.php" method="post" name="form1" >
                 <input type="email" name="email" id="email" placeholder="EMAIL"/>
                 <input type="password" name="senha" id="senha" placeholder="SENHA"/>
                 <input class='btn' type="submit" value="ENTRAR" /><br />
