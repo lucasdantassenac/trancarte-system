@@ -131,15 +131,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         
         $fileName = $_POST['nome'];
         try {
-            $stmt = $mysqli->prepare("UPDATE downloads SET 'nomeDoArquivo' = ? WHERE id = ?");
+            $stmt = $mysqli->prepare("UPDATE downloads SET nome = ? WHERE id = ?");
             $stmt->bind_param('si',  $fileName, $id);
 
             if ($stmt->execute()) {
                 $stmt->store_result();
-                header("location: ../../consultarPedido.php?order=sucess");
+                header("location: ../../consultarDownload.php?download=sucess");
             } else {
                 $stmt->store_result();
-                header("location: ../../consultarPedido.php?order=error");
+                header("location: ../../consultarDownload.php?download=error");
             }
 
             // Fecha a conexão
