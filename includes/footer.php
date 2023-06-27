@@ -38,5 +38,6 @@
         </div>
     </footer>
     <script defer src='<?php echo $url ;?>assets/js/openPopUp.js'></script>
+    <script defer src='<?php echo $url ;?>assets/js/searchTableContent.js'></script>
 </body>
 </html>

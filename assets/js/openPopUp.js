@@ -19,10 +19,8 @@ let btns = document.querySelectorAll(".popUpAddBtn"),
 
 btns.forEach((btn, i) => {
     btn.addEventListener('click', () => {
-        console.log('clicado')
         popUpsController.openButtons(popUps[i], overlay);
     })
-    console.log(popUps[i])
 });
 
 closePopUpBtns.forEach((btn, i) => {
