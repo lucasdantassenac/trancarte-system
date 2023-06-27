@@ -14,9 +14,7 @@ ini_set('display_errors', 1);
 	
 	if ($num_linhas=="0")
 	{
-		echo $email;
-		echo $senha;
-		#header("Location: index.php?erro=1");
+		header("Location: index.php?erro=1");
 	}
 	else
 	{

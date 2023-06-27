@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="inputDiv c33">
-                        <label for='password'>Senha provisória*</label>
-                        <input type='password' name='password' id='architectPassword' required>
+                        <label for='architectPassword'>Senha provisória*</label>
+                        <input type='password' name='architectPassword' id='architectPassword' required>
                     </div>
                     <div class="inputDiv c100 btnDiv">
                         <input type='submit' class='btn seeMore c100' value='Cadastrar'>
@@ -114,13 +114,13 @@
 
 
                     <div class="inputDiv c33">
-                        <label for='email'>E-mail*</label>
-                        <input type='email' name='email' id='sellerEmail' required>
+                        <label for='sellerEmail'>E-mail*</label>
+                        <input type='email' name='sellerEmail' id='sellerEmail' required>
                     </div>
 
                     <div class="inputDiv c33">
-                        <label for='password'>Senha provisória*</label>
-                        <input type='password' name='password' id='sellerPassword' required>
+                        <label for='sellerPassword'>Senha provisória*</label>
+                        <input type='password' name='sellerPassword' id='sellerPassword' required>
                     </div>
 
                     <div class="inputDiv c100 btnDiv">

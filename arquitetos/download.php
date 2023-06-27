@@ -5,7 +5,7 @@ session_start();
 
 $codigo = $_SESSION["codigo"];
 
-if(!isset($codigo))
+if(!isset($codigo) || $_SESSION['userType'] == "admin")
 {
     header("Location: ./index.php?erro=1");
 }
@@ -33,43 +33,34 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
         </section>
         <section class='contentSection'>
             <div class='limiter'>
-                <div class='row content'>
-                    <div class='col c75'>
-                        <table> 
-                            <thead>
-                                <tr class='thead'>
-                                    <th>Nome</th>
-                                    <th>Arquivo</th>
-                                    <th>Enviado em</th>
-                                   
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
-                                    <tr class='tcontent'>
-                                        <td><?php echo $exibe['nome'] ?></td>
-                                        <td>
-                                            <a href='<?php echo $exibe['url'] ?>' target='_blank'>
-                                                <?php echo formatTime('d/m/Y', $exibe['nomeDoArquivo']) ;?>
-                                            </a>
-                                        </td>
-                                        <td><?php echo $exibe['dataCadastro'] ?></td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class='col c25 fastMenu'>
-                        <h3>Link rápido</h3>
-                        <ul>
-                            <li><a href='#'>Adicionar <b>novo </b>arquiteto</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>pedido</a></li>
-                            <li><a href='#'>Adicionar <b>novo </b>vendedor</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <table> 
+                    <thead>
+                        <tr class='thead'>
+                            <th>Nome</th>
+                            <th>Arquivo</th>
+                            <th>Enviado em</th>
+                            <th>Controles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                            <tr class='tcontent'>
+                                <td><?php echo basename($exibe['nome']); ?></td>
+                                <td>
+                                    <a href='<?php echo $exibe['url'] ?>' target='_blank'>
+                                        <?php echo $exibe['nomeDoArquivo'] ;?>
+                                    </a>
+                                </td>
+                                <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
+                                <td>
+                                    <a href="<?php echo $exibe['url'] ?>" download><span class="material-symbols-outlined">download</span></a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
-            </section>
+        </section>
 <?php
     require_once '../includes/footer.php';
 ?>

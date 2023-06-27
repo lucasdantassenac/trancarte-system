@@ -17,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['user'];
     $cpfCnpj = $_POST['cpf'];
     $rg = $_POST['rg'];
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
+    $email = $_POST['sellerEmail'];
+    $password = md5($_POST['sellerPassword']);
     $registerDate = date('Y-m-d H:m:s'); 
   
     echo $target_dir;
