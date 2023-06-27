@@ -9,11 +9,12 @@ function myFunction() {
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
       let td = tr[i].getElementsByTagName("td");
-      for(i2 = 0; i< td.length; i++){
-        if (content) {
-          txtValue = content.textContent || content.innerText;
+      for(i2 = 0; i2< td.length; i2++){
+        if (td[i2]) {
+          txtValue = td[i2].textContent || td[i2].innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
+            break
           } else {
             tr[i].style.display = "none";
           }
