@@ -24,13 +24,13 @@
         <div class='nav-div'>
             <nav>
                 <ul>
-                    <li class='nav-btn <?php echo $inicio;?>'><a href='<?php echo $url;?>admin/home.php'>inicio</a></li>
-                    <li class='nav-btn <?php echo $arquitetos;?>'><a href='<?php echo $url;?>admin/consultarArquiteto.php' class=''>Arquitetos</a></li>
-                    <li class='nav-btn <?php echo $vendedor;?>'><a href='<?php echo $url;?>admin/consultarVendedor.php'>Vendedor</a></li>
-                    <li class='nav-btn <?php echo $pedidos;?>'><a href='<?php echo $url;?>admin/consultarPedido.php'>Pedidos</a></li>
-                    <li class='nav-btn <?php echo $downloads;?>'><a href='<?php echo $url;?>admin/consultarDownload.php'>Downloads</a></li>
-                    <li class='nav-btn'><a href='<?php echo $url;?>sair.php'>sair</a></li>
-                    <li class='nav-btn btn'><a href='../ranking.php'>Ranking</a></li>
+                    <a href='<?php echo $url;?>admin/home.php'><li class='nav-btn <?php echo $inicio;?>'>inicio</li></a>
+                    <a href='<?php echo $url;?>admin/consultarArquiteto.php' class=''><li class='nav-btn <?php echo $arquitetos;?>'>Arquitetos</a></li>
+                    <a href='<?php echo $url;?>admin/consultarVendedor.php'><li class='nav-btn <?php echo $vendedor;?>'>Vendedor</li></a>
+                    <a href='<?php echo $url;?>admin/consultarPedido.php'><li class='nav-btn <?php echo $pedidos;?>'>Pedidos</li></a>
+                    <a href='<?php echo $url;?>admin/consultarDownload.php'><li class='nav-btn <?php echo $downloads;?>'>Downloads</li></a>
+                    <a href='<?php echo $url;?>sair.php'><li class='nav-btn'>sair</li></a>
+                    <a href='../ranking.php'><li class='nav-btn btn'>Ranking</li></a>
                 </ul>
             </nav>
         </div>
