@@ -148,7 +148,7 @@
                     
                     <div class='inputDiv c33'>
                         <label for='cpf'>Data*</label>
-                        <input class='i50 if' type='datetime-local' name='date' id='orderDate' required>
+                        <input class='i50 if' type='datetime-local' name='date' id='orderDate' max='9999-12-31T23:59' required>
                        
                     </div>
 
