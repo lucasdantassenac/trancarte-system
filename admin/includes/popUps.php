@@ -41,7 +41,7 @@
 
                     <div class="inputDiv c50">
                         <label for='birthday'>Data de nascimento*</label>
-                        <input class='i50' type='date' name='birthday' id='architectBirthday' required>
+                        <input class='i50' type='date' name='birthday' id='architectBirthday' max='9999-12-31' required>
                     </div>
 
                     <div class="inputDiv c50">
@@ -148,7 +148,7 @@
                     
                     <div class='inputDiv c33'>
                         <label for='cpf'>Data*</label>
-                        <input class='i50 if' type='datetime-local' name='date' id='orderDate' required>
+                        <input class='i50 if' type='datetime-local' name='date' id='orderDate' max='9999-12-31T23:59' required>
                        
                     </div>
 

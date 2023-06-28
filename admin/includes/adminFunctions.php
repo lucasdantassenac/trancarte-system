@@ -2,7 +2,7 @@
 function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "", $type = 'text'){
     $bg = "";
     
-    if((isset($array[$index]) && (!empty($array[$index]) XOR $array[$index] == 0) && isset($title)) || $edit == 'true')
+    if((isset($array[$index]) && (!empty($array[$index]) XOR $array[$index] === 0) && isset($title)) || $edit == 'true')
     {
         if($index === "dataCadastro" ){
            $readonly = "readonly";
