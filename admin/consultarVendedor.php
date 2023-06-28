@@ -42,7 +42,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
         <section class='contentSection'>
             <div class='limiter'>
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Pesquisar">
-                <table> 
+                <table id='table'> 
                     <thead>
                         <tr class='thead'>
                             <th>Id</th>

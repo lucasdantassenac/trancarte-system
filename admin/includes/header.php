@@ -24,12 +24,12 @@
         <div class='nav-div'>
             <nav>
                 <ul>
-                    <a href='<?php echo $url;?>admin/home.php'><li class='nav-btn <?php echo $inicio;?>'>inicio</li></a>
+                    <a href='<?php echo $url;?>admin/home.php'><li class='nav-btn <?php echo $inicio;?>'>Início</li></a>
                     <a href='<?php echo $url;?>admin/consultarArquiteto.php' class=''><li class='nav-btn <?php echo $arquitetos;?>'>Arquitetos</a></li>
                     <a href='<?php echo $url;?>admin/consultarVendedor.php'><li class='nav-btn <?php echo $vendedor;?>'>Vendedor</li></a>
                     <a href='<?php echo $url;?>admin/consultarPedido.php'><li class='nav-btn <?php echo $pedidos;?>'>Pedidos</li></a>
                     <a href='<?php echo $url;?>admin/consultarDownload.php'><li class='nav-btn <?php echo $downloads;?>'>Downloads</li></a>
-                    <a href='<?php echo $url;?>sair.php'><li class='nav-btn'>sair</li></a>
+                    <a href='<?php echo $url;?>sair.php'><li class='nav-btn'>Sair</li></a>
                     <a href='../ranking.php'><li class='nav-btn btn'>Ranking</li></a>
                 </ul>
             </nav>

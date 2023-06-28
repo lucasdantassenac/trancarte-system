@@ -47,7 +47,7 @@ include_once '../includes/functions.php';
         </section>
         <section class='last-requests contentSection '>
             <div class='limiter'>
-                <h2 class='h4'>Ultimos pedidos</h2>
+                <h2 class='h4'>Últimos pedidos</h2>
                 <table> 
                     <thead>
                         <tr class='thead'>
@@ -77,7 +77,7 @@ include_once '../includes/functions.php';
             <div class='limiter'>
                 <div class='row'>
                     <div class='col c50'>
-                        <h3>Ultimos arquitetos adicionados</h3>
+                        <h3>Últimos arquitetos adicionados</h3>
                         <table> 
                             <tbody>
                                 <?php while ($exibe = mysqli_fetch_array($selecionaArquiteto, MYSQLI_ASSOC)){  ?>
