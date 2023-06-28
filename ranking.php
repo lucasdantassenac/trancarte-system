@@ -12,7 +12,7 @@ $links = array(
     0 => "assets/css/global.css",
     1 => "assets/css/header.css",
     3 => "assets/css/pageStyles/globalPages.css",
-    4 => "assets/css/pageStyles/home.css"
+    4 => "assets/css/pageStyles/ranking.css"
 );
 require_once 'includes/conexao.php';
 require_once 'includes/head.php';
