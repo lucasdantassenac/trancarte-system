@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if($exists[0]){
-        header("location: ../../home.php?error=".$exists[1]);
+        header("location: ../../home.php?error=data_exists&existentFields=".$exists[1]);
     }
     else{
         echo "nao encontrado";
@@ -108,8 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Executa a consulta
         if ($stmt->execute()) {
             $stmt->store_result();
-
-            echo 'Arquiteto adicionado com sucesso!';
             header("location: ../../home.php?architect=sucess");
         } else {
             header("location: ../../home.php?architect=error");

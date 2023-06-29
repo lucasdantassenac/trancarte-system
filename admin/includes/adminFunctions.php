@@ -32,7 +32,7 @@ function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "",
 
 function checkIfExist($mysqli, $table, $array ){
     $exists = false;
-    $existentFields = "existentFields=";
+    $existentFields = "";
     foreach ($array as $key => $field) {
         try {
             $stmt = $mysqli->prepare("SELECT * FROM $table WHERE $key = ? AND status = 'a'");
