@@ -13,7 +13,7 @@ session_start();
 	
 	if ($num_linhas=="0")
 	{
-		header("Location: index.php?erro=1");
+		header("Location: index.php?error=1");
 	}
 	else
 	{

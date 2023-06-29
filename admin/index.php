@@ -5,8 +5,9 @@ $links = array(
     2 => "assets/css/loginPages/loginArquiteto.css"
 );
 require_once '../includes/head.php';
-$erro = "";
-
+if(isset($_GET['error']) && $_GET['error'] == '1'){
+    echo "<script>alert('Usuário ou senha inválidos')</script>";
+}
 ?>
 
 
@@ -15,12 +16,13 @@ $erro = "";
     <img id='logo' src='../img/logo-trancarte-branca.png' alt='Logo da Trançarte'>
     <div class='acess-div'>
         <h1 class='h3'>Acesso do Administrador</h1>
+        <a href='../index.php'>Voltar ao início</a>
+
         <div class="box-login">
             <form action="./verificaLogin.php" method="post" name="form1" >
                 <input type="text" name="login" id="login" placeholder="LOGIN"/>
                 <input type="password" name="senha" id="senha" placeholder="SENHA"/>
                 <input class='btn' type="submit" value="ENTRAR" /><br />
-                <span id="spanLogin" class="erro"><?php echo $erro; ?></span>
             </form>
         </div>
     </div>
