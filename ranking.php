@@ -122,7 +122,7 @@ include_once 'includes/functions.php';
                                     <tr class='tcontent'>
                                         <td><?php custom_echo($vendedor['vendedor'], 25); ?></td>
                                         <?php if($_SESSION['userType'] === 'admin'):?>
-                                            <td><a href="./admin/includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
+                                            <td><a href="./admin/includes/viewOrEdit.php?id=<?php echo $vendedor['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
                                         <?php endif ?>
                                     </tr>
                                 <?php } ?>

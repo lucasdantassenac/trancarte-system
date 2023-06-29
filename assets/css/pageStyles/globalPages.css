@@ -263,9 +263,10 @@ footer li{
     }
     .headerShow{
         left: 0;
+        transition: .5s;
     }
     .headerHidden{
-        left:-100vw;
+        left:-550vw;
     }
     .headerFixed{
         position:fixed;
@@ -278,4 +279,5 @@ footer li{
     .addBtnSection .btn{
         margin:15px 0;
     }
+    
   }
