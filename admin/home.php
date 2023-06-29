@@ -42,34 +42,36 @@ include_once '../includes/functions.php';
         <section class='last-requests contentSection '>
             <div class='limiter'>
                 <h2 class='h4'>Últimos pedidos</h2>
-                <table> 
-                    <thead>
-                        <tr class='thead'>
-                            <th>Pedido</th>
-                            <th>Cliente</th>
-                            <th>Data</th>
-                            <th>Valor</th>
-                            <th>Pontos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($exibe = mysqli_fetch_array($selecionaPedido, MYSQLI_ASSOC)){  ?>
-                            <tr class='tcontent'>
-                                <td><?php echo $exibe['pedido']; ?></td>
-                                <td><?php custom_echo($exibe['cliente'], 25); ?></td>
-                                <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
-                                <td><?php echo $exibe['valor']; ?></td> 
-                                <td><?php echo $exibe['pontos']; ?></td> 
+                <div class='tableDiv'>
+                    <table> 
+                        <thead>
+                            <tr class='thead'>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th>Pontos</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php while ($exibe = mysqli_fetch_array($selecionaPedido, MYSQLI_ASSOC)){  ?>
+                                <tr class='tcontent'>
+                                    <td><?php echo $exibe['pedido']; ?></td>
+                                    <td><?php custom_echo($exibe['cliente'], 25); ?></td>
+                                    <td><?php echo formatTime("d/m/Y", $exibe['data']); ?></td> 
+                                    <td><?php echo $exibe['valor']; ?></td> 
+                                    <td><?php echo $exibe['pontos']; ?></td> 
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
                 <a href='./consultarArquiteto.php' class='btn seeMore'>Ver todos</a>
             </div>
         </section>
-        <section class='flexCenter pv'>
+        <section class='flexCenter pv otherEntitySection'>
             <div class='limiter'>
-                <div class='row'>
+                <div class='row anotherEntityRow'>
                     <div class='col c50'>
                         <h3>Últimos arquitetos adicionados</h3>
                         <table> 
