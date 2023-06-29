@@ -10,6 +10,7 @@
                     <div class='inputDiv c100'>
                         <label for='photo'>Foto</label>
                         <input type='file' accept='image/png, image/jpeg, image/jpg' name='photo' id='photo'>
+                        <small><i>Tamanho: até 1MB | Tipos: png, jpg e jpeg.</i></small>
                     </div>
                     
                     <div class='inputDiv c50'>

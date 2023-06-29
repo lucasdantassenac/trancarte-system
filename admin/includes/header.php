@@ -16,21 +16,34 @@
     $selecionaVendedor   = mysqli_query($mysqli, $sqlVendedor);
 ?>
 <body>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'data_exists'){
+        echo "<script>alert('Já existe um item ou arquiteto com esse(s) dado(s). Reveja os dados e tente novamente')</script>";
+    }?>
 <header>
-    <div class='limiter'>
+    <div class='mobile-limiter'>
+        <div class="burger" id="burger">
+            <span class="burger-line"> </span>
+            <span class="burger-line"> </span>
+            <span class="burger-line"> </span>
+        </div>
+        <div class='logo_div_mobile'>
+            <a href='<?php echo $url;?>'><img id='header_logo' src='<?php echo $url;?>img/logo-trancarte-branca.png' alt='logo da trançarte'></a>
+        </div>
+    </div>
+       <div id='headerLimiter' class='headerHidden limiter'>
         <div class='logo_div'>
             <a href='<?php echo $url;?>'><img id='header_logo' src='<?php echo $url;?>img/logo-trancarte-branca.png' alt='logo da trançarte'></a>
         </div>
         <div class='nav-div'>
             <nav>
-                <ul>
+                <ul class='nav-links'>
                     <a href='<?php echo $url;?>admin/home.php'><li class='nav-btn <?php echo $inicio;?>'>Início</li></a>
                     <a href='<?php echo $url;?>admin/consultarArquiteto.php' class=''><li class='nav-btn <?php echo $arquitetos;?>'>Arquitetos</a></li>
                     <a href='<?php echo $url;?>admin/consultarVendedor.php'><li class='nav-btn <?php echo $vendedor;?>'>Vendedor</li></a>
                     <a href='<?php echo $url;?>admin/consultarPedido.php'><li class='nav-btn <?php echo $pedidos;?>'>Pedidos</li></a>
                     <a href='<?php echo $url;?>admin/consultarDownload.php'><li class='nav-btn <?php echo $downloads;?>'>Downloads</li></a>
                     <a href='<?php echo $url;?>sair.php'><li class='nav-btn'>Sair</li></a>
-                    <a href='../ranking.php'><li class='nav-btn btn'>Ranking</li></a>
+                    <a href='<?php echo $url;?>ranking.php'><li class='nav-btn btn'>Ranking</li></a>
                 </ul>
             </nav>
         </div>

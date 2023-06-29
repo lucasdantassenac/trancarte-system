@@ -130,7 +130,9 @@ if(empty($returnedEntity['fotoUrl'])){
                     <div class='col colRight c40'>
                         <div class='dataDiv w'>
                             <h2 class='h2'>Dados</h2>
-                            <form action='./controller/update.php' method='post' enctype="multipart/form-data">
+                            <form action='./controller/update.php' method='post' enctype="multipart/form-data" autocomplete="off">
+                                <input type="text" style="display:none">
+                                <input type="password" style="display:none" autocomplete='on'>
                                 <?php
                                 if($tableName === "arquitetos"){
                                     if($_GET['edit'] == 'true'){
@@ -138,6 +140,7 @@ if(empty($returnedEntity['fotoUrl'])){
                                         echoIfIssetAdmin($_GET['edit'], $returnedEntity, "arquiteto", "Nome", $readonly);
                                     }
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "email", "E-mail", $readonly);
+                                    echoIfIssetAdmin($_GET['edit'], $returnedEntity, "usuario", "Usuário", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "cpfCnpj", "CPF/CNPJ", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "rg", "RG", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "pis", "PIS", $readonly);
@@ -148,6 +151,15 @@ if(empty($returnedEntity['fotoUrl'])){
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "endereco", "Endereço", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dadosBancarios", "Dados bancários", $readonly);
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "dataCadastro", "Data de Cadastro", $readonly, 'datetime');
+                                    if($_GET['edit'] == 'true'){
+                                ?>
+                                    <div class ='dataItemDiv'>
+                                        <label for='architectPassword' class='h5'>Senha</label>
+                                        <input name='architectPassword' type='password' autocomplete='new-password'>
+                                    </div>
+                                
+                                <?php
+                                    }
                                 }
                                 elseif($tableName === "vendedores"){
                                     echoIfIssetAdmin($_GET['edit'], $returnedEntity, "vendedor", "Vendedor", $readonly);

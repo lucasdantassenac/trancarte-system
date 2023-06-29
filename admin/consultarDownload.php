@@ -41,35 +41,37 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
         </section>
         <section class='contentSection'>
             <div class='limiter'>
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Pesquisar">
-                <table id='table'> 
-                    <thead>
-                        <tr class='thead'>
-                            <th>Nome</th>
-                            <th>Arquivo</th>
-                            <th>Enviado em</th>
-                            <th>Controles</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
-                            <tr class='tcontent'>
-                                <td><?php echo basename($exibe['nome']); ?></td>
-                                <td>
-                                    <a href='<?php echo $exibe['url'] ?>' target='_blank'>
-                                        <?php echo $exibe['nomeDoArquivo'] ;?>
-                                    </a>
-                                </td>
-                                <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
-                                <td>
-                                    <a href="<?php echo $exibe['url'] ?>" download><span class="material-symbols-outlined">download</span></a>
-                                    <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['id']?>&table=downloads&edit=true"><span class="material-symbols-outlined"> edit </span></a>
-                                    <a href="./includes/delete.php?id=<?php echo $exibe['id'] ?>&table=downloads" onclick="return confirm('Confirma a Exclusão do arquivo?')"><span class="material-symbols-outlined"> delete </span></a>
-                                </td>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Pesquisar">
+                <div class='tableDiv'>
+                    <table id='table'> 
+                        <thead>
+                            <tr class='thead'>
+                                <th>Nome</th>
+                                <th>Arquivo</th>
+                                <th>Enviado em</th>
+                                <th>Controles</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                                <tr class='tcontent'>
+                                    <td><?php echo basename($exibe['nome']); ?></td>
+                                    <td>
+                                        <a href='<?php echo $exibe['url'] ?>' target='_blank'>
+                                            <?php echo $exibe['nomeDoArquivo'] ;?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo formatTime('d/m/Y', $exibe['dataCadastro']); ?></td>
+                                    <td>
+                                        <a href="<?php echo $exibe['url'] ?>" download><span class="material-symbols-outlined">download</span></a>
+                                        <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['id']?>&table=downloads&edit=true"><span class="material-symbols-outlined"> edit </span></a>
+                                        <a href="./includes/delete.php?id=<?php echo $exibe['id'] ?>&table=downloads" onclick="return confirm('Confirma a Exclusão do arquivo?')"><span class="material-symbols-outlined"> delete </span></a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 <?php

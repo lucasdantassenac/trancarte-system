@@ -13,6 +13,8 @@ if(isset($_GET['id'])){
     $id = intval($_GET['id']);
     $tableName = $_GET['table'];
     $redirectTo = 'home.php';
+    $points = $_GET['points'];
+    $idArchitect = 0;
     $query = 0;
     switch ($tableName) {
         case 'arquitetos':
@@ -23,6 +25,9 @@ if(isset($_GET['id'])){
 
         case 'pedidos':
             $query = ("UPDATE pedidos SET status = 'd' WHERE idPedido = ? AND status = 'a' OR status = 'b'");
+            $points = $_GET['points'];
+            $idArchitect = $_GET['idArchitect'];
+
             $redirectTo = 'consultarPedido.php';
             
         break;
@@ -77,6 +82,13 @@ if(isset($_GET['id'])){
                 }else{
                     header("location:" . $url . "$redirectTo?delete=$tableName-err_on_remove");
                 }
+            }
+            if($tableName === 'pedidos'){
+                $stmt->store_result();
+                $query = "UPDATE arquitetos SET pontuacao = pontuacao - ? WHERE idArquiteto = ?";
+                $stmt->prepare($query);
+                $stmt->bind_param('di', $points, $id);
+                $stmt->execute();
             }
             header("location:" . $url . "$redirectTo?delete=$tableName-sucessfull-deleted");
 

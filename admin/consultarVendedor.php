@@ -41,32 +41,34 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
         </section>
         <section class='contentSection'>
             <div class='limiter'>
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Pesquisar">
-                <table id='table'> 
-                    <thead>
-                        <tr class='thead'>
-                            <th>Id</th>
-                            <th>Vendedor</th>
-                            <th>E-mail</th>
-                            <th>Controles</th>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Pesquisar">
+                <div class='tableDiv'>
+                    <table id='table'> 
+                        <thead>
+                            <tr class='thead'>
+                                <th>Id</th>
+                                <th>Vendedor</th>
+                                <th>E-mail</th>
+                                <th>Controles</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
-                            <tr class='tcontent'>
-                                <td><?php echo $exibe['idVendedor'] ?></td>
-                                <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
-                                <td><?php custom_echo($exibe['email'], 25); ?></td>
-                                <td>
-                                    <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a>
-                                    <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores&edit=true"><span class="material-symbols-outlined"> edit </span></a>
-                                    <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
-                                </td>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php while ($exibe = mysqli_fetch_array($seleciona, MYSQLI_ASSOC)){  ?>
+                                <tr class='tcontent'>
+                                    <td><?php echo $exibe['idVendedor'] ?></td>
+                                    <td><?php custom_echo($exibe['vendedor'], 25); ?></td>
+                                    <td><?php custom_echo($exibe['email'], 25); ?></td>
+                                    <td>
+                                        <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a>
+                                        <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores&edit=true"><span class="material-symbols-outlined"> edit </span></a>
+                                        <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Vendedor?')"><span class="material-symbols-outlined"> delete </span></a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 <?php

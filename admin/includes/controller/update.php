@@ -35,22 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $endereco = $_POST['endereco'];
         $dadosBancarios = $_POST['dadosBancarios'];
         $pontuacao = $_POST['pontuacao'];
+        $senha = md5($_POST['architectPassword']);
+        $archiectUser = $_POST['usuario'];
 
-        echo $arquiteto. "<br>";
-        echo $email. "<br>";
-        echo $cpfCnpj. "<br>";
-        echo $rg. "<br>";
-        echo $pis. "<br>";
-        echo $nascimento. "<br>";
-        echo $filiacao. "<br>";
-        echo $telefone. "<br>";
-        echo $emailPremium. "<br>";
-        echo $endereco. "<br>";
-        echo $dadosBancarios. "<br>";
-        echo $pontuacao. "<br>";
-
-        $stmt = $mysqli->prepare('UPDATE arquitetos SET arquiteto=?, pontuacao=?, email=?, cpfCnpj=?, rg=?, pis=?, nascimento=?, filiacao=?, telefone=?, emailPremium=?, endereco=?, dadosBancarios=? WHERE idArquiteto=?');
-        $stmt->bind_param('sdssssssssssi', $arquiteto, $pontuacao, $email,  $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios, $id);
+        $stmt = $mysqli->prepare('UPDATE arquitetos SET arquiteto=?, pontuacao=?, email=?, cpfCnpj=?, rg=?, pis=?, nascimento=?, filiacao=?, telefone=?, emailPremium=?, endereco=?, dadosBancarios=?, senha=?, usuario=? WHERE idArquiteto=?');
+        $stmt->bind_param('sdssssssssssssi', $arquiteto, $pontuacao, $email, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios, $password, $archiectUser, $id );
 
         // Executa a consulta
         if ($stmt->execute()) {
