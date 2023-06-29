@@ -208,7 +208,9 @@ footer li{
     visibility:hidden;
   }
   
-
+  .tableDiv{
+    overflow-x:auto;
+  }
   /*RESPONSIVITY*/
   @media(max-width: 940px){
     header{
