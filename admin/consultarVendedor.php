@@ -61,7 +61,7 @@ $seleciona = mysqli_query($mysqli,$sql); //executa a sql com base na conexão cr
                                 <td>
                                     <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a>
                                     <a href="./includes/viewOrEdit.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores&edit=true"><span class="material-symbols-outlined"> edit </span></a>
-                                    <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Usuário?')"><span class="material-symbols-outlined"> delete </span></a>
+                                    <a href="./includes/delete.php?id=<?php echo $exibe['idVendedor'] ?>&table=vendedores" onclick="return confirm('Confirma a Exclusão do Vendedor?')"><span class="material-symbols-outlined"> delete </span></a>
                                 </td>
                             </tr>
                         <?php } ?>
