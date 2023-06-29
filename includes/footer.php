@@ -39,5 +39,6 @@
     </footer>
     <script defer src='<?php echo $url ;?>assets/js/openPopUp.js'></script>
     <script defer src='<?php echo $url ;?>assets/js/searchTableContent.js'></script>
+    <script defer src='<?php echo $url ;?>assets/js/mobileMenu.js'></script>
 </body>
 </html>

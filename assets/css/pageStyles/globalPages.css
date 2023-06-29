@@ -203,3 +203,66 @@ footer li{
     border: 1px solid #ddd; /* Add a grey border */
     margin-bottom: 12px; /* Add some space below the input */
   }
+  .burger{
+    display:none;
+    visibility:hidden;
+  }
+
+  /*RESPONSIVITY*/
+  @media(max-width: 940px){
+    .mobile-limiter{
+        max-width:1280px;
+        width:100%;
+        padding:0 1em;
+    }
+    .burger{
+        width:25px;
+        display:flex;
+        visibility:visible;
+        transform: rotate(90deg);
+        cursor:pointer;
+        z-index:6;
+        height:25px;
+
+    }
+    .burger-line{
+        height:25px;
+        color:#fff;
+        margin:0px 3px;
+        border:1px solid #fff;
+    }
+    header, .nav-links, header .limiter{
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    
+    header .limiter{
+        position:fixed;
+        z-index:5;
+        height:100%;
+        padding:10px 20px 15px;
+        align-items:flex-start;
+        top:50px;
+        background-color:var(--primary);
+    }
+    .logo_div, .nav-links, .nav-div{
+        width:60%;
+    }
+    .headerShow{
+        left: 0;
+    }
+    .headerHidden{
+        left:-100vw;
+    }
+    .headerFixed{
+        position:fixed;
+    }
+   .addBtnSection{
+        justify-content:space-around;
+        flex-wrap:wrap;
+    }
+    .addBtnSection .btn{
+        margin:15px 0;
+    }
+  }
