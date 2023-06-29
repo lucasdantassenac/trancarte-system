@@ -24,14 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $architectId = $_POST['orderArchitect'];
     $registerDate = date('Y-m-d H:m:s'); 
     
-    echo $orderNumber."<br>";
-    echo $clientName."<br>";
-    echo $orderDate."<br>";
-    echo $orderValue."<br>";
-    echo $points."<br>";
-    echo $sellerId."<br>";
-    echo "arquiteto:". $architectId."<br>";
-    echo $registerDate."<br>";
     require_once "../../../includes/conexao.php";
  
     if ($mysqli->connect_error) {

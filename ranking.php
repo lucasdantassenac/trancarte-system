@@ -48,9 +48,9 @@ include_once 'includes/functions.php';
             </div>
         </section>
         <?php if($_SESSION['userType'] == 'admin'): ?>
-            <section class='controllerBtnSection flexCenter'>
+            <section class='flexCenter'>
                 <div class="limiter">
-                <div class="flexBetween">
+                    <div class="flexBetween addBtnSection">
                         <?php require_once './admin/includes/popUpAddBtns.php';?>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ include_once 'includes/functions.php';
         <section class='flexCenter pv'>
             <div class='limiter'>
                 <div class='row'>
-                    <div class='col c40'>
+                    <div class='col c50'>
                         <h2 class='h4'>Pedidos</h2>
                         <table> 
                             <thead>
@@ -84,7 +84,7 @@ include_once 'includes/functions.php';
                             </tbody>
                         </table>
                     </div>
-                    <div class='col c40'>
+                    <div class='col c50'>
                         <h2 class='h4'>Arquitetos</h2>
                         <table> 
                             <thead>
@@ -103,26 +103,6 @@ include_once 'includes/functions.php';
                                         <td><?php echo $exibe['pontuacao']; ?></td>
                                         <?php if($_SESSION['userType'] === 'admin'):?>
                                             <td> <a href="./admin/includes/viewOrEdit.php?id=<?php echo $exibe['idArquiteto'] ?>&edit=false&table=arquitetos"><span class="material-symbols-outlined">visibility</span></a> </td>
-                                        <?php endif ?>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class='col c20'>
-                        <h2 class='h4'>Vendedor</h2>
-                        <table> 
-                            <thead>
-                                <tr class='thead'>
-                                    <th>Vendedor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($selecionaVendedor as $index => $vendedor) {?>
-                                    <tr class='tcontent'>
-                                        <td><?php custom_echo($vendedor['vendedor'], 25); ?></td>
-                                        <?php if($_SESSION['userType'] === 'admin'):?>
-                                            <td><a href="./admin/includes/viewOrEdit.php?id=<?php echo $vendedor['idVendedor']?>&table=vendedores&edit=false"><span class="material-symbols-outlined">visibility</span></a> </td>
                                         <?php endif ?>
                                     </tr>
                                 <?php } ?>

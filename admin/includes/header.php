@@ -43,7 +43,7 @@
                     <a href='<?php echo $url;?>admin/consultarPedido.php'><li class='nav-btn <?php echo $pedidos;?>'>Pedidos</li></a>
                     <a href='<?php echo $url;?>admin/consultarDownload.php'><li class='nav-btn <?php echo $downloads;?>'>Downloads</li></a>
                     <a href='<?php echo $url;?>sair.php'><li class='nav-btn'>Sair</li></a>
-                    <a href='../ranking.php'><li class='nav-btn btn'>Ranking</li></a>
+                    <a href='<?php echo $url;?>ranking.php'><li class='nav-btn btn'>Ranking</li></a>
                 </ul>
             </nav>
         </div>
