@@ -16,9 +16,18 @@
     $selecionaVendedor   = mysqli_query($mysqli, $sqlVendedor);
 ?>
 <body>
-    <?php if(isset($_GET['error']) && $_GET['error'] == 'data_exists'){
-        echo "<script>alert('Já existe um item ou arquiteto com esse(s) dado(s). Reveja os dados e tente novamente')</script>";
-    }?>
+    <?php 
+        if(isset($_GET['error']) && $_GET['error'] == 'data_exists'){
+            $existentData = filter_input(INPUT_GET,'existentFields' ,FILTER_SANITIZE_ENCODED);
+            $existentData = str_replace("_", ", ", $existentData);
+            $existentData = str_replace("_", ", ", $existentData);
+            echo "<script>
+            alert('Os dados: ".$existentData." já existem em outro arquiteto. Reveja-os e tente novamente')
+            </script>";
+        }elseif(isset($_GET['architect']) && $_GET['architect'] == 'sucess'){
+            echo "<script>alert('Arquiteto adicionado com sucesso')</script>";
+        }
+    ?>
 <header>
     <div class='mobile-limiter'>
         <div class="burger" id="burger">

@@ -5,6 +5,9 @@
         2 => "assets/css/loginPages/index.css"
     );
     require_once './includes/head.php';
+    if(isset($_GET['error']) && $_GET['error'] == '1'){
+        echo "<script>alert('Usuário ou senha inválidos')</script>";
+    }
 ?>
 
 <body class="login">

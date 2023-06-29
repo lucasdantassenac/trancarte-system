@@ -8,8 +8,7 @@ ini_set('session.gc_maxlifetime', 3600); // 1 hora
 ini_set('session.cookie_lifetime', 3600);
 session_start();
 
-$codigo = $_SESSION["codigo"];
-if(!isset($codigo) || $_SESSION['userType'] != "admin"){
+if(!isset($_SESSION["codigo"]) || $_SESSION['userType'] != "admin"){
     header($url."?error=not-logged-in");
 }
 // Verifica se o formulário foi enviado
@@ -71,45 +70,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else{
         $fotoUrl = "logo.png";
     }
-    // Dados do formulário
     
-    require "../../../includes/conexao.php";
-    // Verifica se ocorreu um erro na conexão
+    require_once "../../../includes/conexao.php";
+    require_once '../adminFunctions.php';
     if ($mysqli->connect_error) {
         die('Erro na conexão com o banco de dados: ' . $mysqli->connect_error);
     }
 
-    // Prepara a consulta SQL
 
     try {
+        $singleDatas = array(
+            "usuario" => $user,
+            "email" => $email,
+            "cpfCnpj" => $cpfCnpj,
+            "telefone" => $telefone, 
+            "emailPremium" => $emailPremium, 
+            "dadosBancarios" => $dadosBancarios 
+        );
+        $exists = checkIfExist($mysqli, 'arquitetos', $singleDatas);
+        /*
         $stmt = $mysqli->prepare("SELECT * FROM arquitetos WHERE (usuario = ? OR email = ? OR cpfCnpj = ? OR rg = ?) AND status = 'a'");
         $stmt->bind_param('ssss', $user, $email, $cpfCnpj, $rg);
         $stmt->execute();
-        $stmt->store_result();
+        $stmt->store_result();*/
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
     
-    if($stmt->num_rows > 0){
-        header("location: ../../home.php?error=data_exists");
+    if($exists[0]){
+        header("location: ../../home.php?error=data_exists&existentFields=".$exists[1]);
     }
     else{
-
+        echo "nao encontrado";
         $stmt = $mysqli->prepare('INSERT INTO arquitetos (usuario, arquiteto, email, senha, dataCadastro, fotoUrl, cpfCnpj, rg, pis, nascimento,  filiacao, telefone, emailPremium, endereco, dadosBancarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bind_param('sssssssssssssss', $user, $arquiteto, $email, $senha, $dataCadastro, $fotoUrl, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios);
     
         // Executa a consulta
         if ($stmt->execute()) {
             $stmt->store_result();
-
-            echo 'Arquiteto adicionado com sucesso!';
             header("location: ../../home.php?architect=sucess");
         } else {
             header("location: ../../home.php?architect=error");
         }
     }
     
-    // Fecha a conexão
     $stmt->close();
     $mysqli->close();
 }

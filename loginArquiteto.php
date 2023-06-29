@@ -8,6 +8,9 @@ if(isset($_SESSION)){
     session_destroy();
 }
 require_once './includes/head.php';
+if(isset($_GET['error']) && $_GET['error'] == '1'){
+    echo "<script>alert('Usuário ou senha inválidos')</script>";
+}
 ?>
 
 
@@ -16,6 +19,7 @@ require_once './includes/head.php';
     <img id='logo' src='./img/logo-trancarte-branca.png' alt='Logo da Trançarte'>
     <div class='acess-div'>
         <h1 class='h3'>Acesso do arquiteto</h1>
+        <a href='./index.php'>Voltar ao início</a>
         <div class="box-login">
             <form action="architectLoginValidate.php" method="post" name="form1" >
                 <input type="text" name="login" id="email" placeholder="EMAIL ou USUÁRIO"/>

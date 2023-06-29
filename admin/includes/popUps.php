@@ -61,8 +61,8 @@
                     </div>
 
                     <div class="inputDiv c33">
-                        <label for='email-premium'>E-mail casa premium*</label>
-                        <input type='email' name='email-premium' id='architectEmailPremium' required>
+                        <label for='email-premium'>E-mail casa premium</label>
+                        <input type='email' name='email-premium' id='architectEmailPremium'>
                     </div>
 
                     <div class="inputDiv c33">

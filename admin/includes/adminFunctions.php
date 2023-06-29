@@ -29,4 +29,24 @@ function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "",
         return false;
     }
 }
+
+function checkIfExist($mysqli, $table, $array ){
+    $exists = false;
+    $existentFields = "";
+    foreach ($array as $key => $field) {
+        try {
+            $stmt = $mysqli->prepare("SELECT * FROM $table WHERE $key = ? AND status = 'a'");
+            $stmt->bind_param('s', $field);
+            $stmt->execute();
+            $stmt->store_result();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        if($stmt->num_rows > 0){
+            $exists = true;
+            $existentFields .= "$key"."_";
+        }
+    }
+    return [$exists, $existentFields];
+}
 ?>
