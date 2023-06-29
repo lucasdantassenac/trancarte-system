@@ -96,10 +96,6 @@ if(empty($returnedEntity['fotoUrl'])){
     $returnedEntity['fotoUrl'] = "logo.png";
 }
 
-// function seleciona ($mysqli, $sql) {
-//     $queryResult = mysqli_query($mysqli, $sql);
-//     return $queryResult;
-// }
 ?>
     <main>
         <section class='banner'>
