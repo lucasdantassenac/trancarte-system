@@ -16,6 +16,9 @@
     $selecionaVendedor   = mysqli_query($mysqli, $sqlVendedor);
 ?>
 <body>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'data_exists'){
+        echo "<script>alert('Já existe um item ou arquiteto com esse(s) dado(s). Reveja os dados e tente novamente')</script>";
+    }?>
 <header>
     <div class='mobile-limiter'>
         <div class="burger" id="burger">

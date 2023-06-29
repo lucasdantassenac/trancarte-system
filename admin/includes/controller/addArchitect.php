@@ -14,8 +14,8 @@ if(!isset($codigo) || $_SESSION['userType'] != "admin"){
 }
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //verifica se o arquivo de imagem foi enviado sem erros
     $arquiteto = $_POST['name'];
+    $user = $_POST['user'];
     $email = $_POST['email'];
     $senha = md5($_POST['architectPassword']);
     $dataCadastro = date('Y-m-d H:m:s'); 
@@ -82,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepara a consulta SQL
 
     try {
-        $stmt = $mysqli->prepare("SELECT * FROM arquitetos WHERE email = ? AND status = 'a'");
-        $stmt->bind_param('s', $email);
+        $stmt = $mysqli->prepare("SELECT * FROM arquitetos WHERE (usuario = ? OR email = ? OR cpfCnpj = ? OR rg = ?) AND status = 'a'");
+        $stmt->bind_param('ssss', $user, $email, $cpfCnpj, $rg);
         $stmt->execute();
         $stmt->store_result();
     } catch (\Exception $e) {
@@ -91,12 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if($stmt->num_rows > 0){
-        header("location: ../../home.php?error=user_data_exists");
+        header("location: ../../home.php?error=data_exists");
     }
     else{
 
-        $stmt = $mysqli->prepare('INSERT INTO arquitetos (arquiteto, email, senha, dataCadastro, fotoUrl, cpfCnpj, rg, pis, nascimento,  filiacao, telefone, emailPremium, endereco, dadosBancarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $stmt->bind_param('ssssssssssssss', $arquiteto, $email, $senha, $dataCadastro, $fotoUrl, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios);
+        $stmt = $mysqli->prepare('INSERT INTO arquitetos (usuario, arquiteto, email, senha, dataCadastro, fotoUrl, cpfCnpj, rg, pis, nascimento,  filiacao, telefone, emailPremium, endereco, dadosBancarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param('sssssssssssssss', $user, $arquiteto, $email, $senha, $dataCadastro, $fotoUrl, $cpfCnpj, $rg, $pis, $nascimento, $filiacao, $telefone, $emailPremium, $endereco, $dadosBancarios);
     
         // Executa a consulta
         if ($stmt->execute()) {
