@@ -18,7 +18,7 @@ require_once './includes/head.php';
         <h1 class='h3'>Acesso do arquiteto</h1>
         <div class="box-login">
             <form action="architectLoginValidate.php" method="post" name="form1" >
-                <input type="email" name="email" id="email" placeholder="EMAIL"/>
+                <input type="text" name="login" id="email" placeholder="EMAIL ou USUÁRIO"/>
                 <input type="password" name="senha" id="senha" placeholder="SENHA"/>
                 <input class='btn' type="submit" value="ENTRAR" /><br />
                 <!--<span id="spanLogin" class="erro"><?php #echo $erro; ?></span>-->

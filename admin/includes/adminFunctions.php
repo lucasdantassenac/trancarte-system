@@ -14,7 +14,7 @@ function echoIfIssetAdmin($edit = false, $array, $index, $title, $readonly = "",
         "
         <div class ='dataItemDiv'>
             <label for='$index' class='h5'>$title</label>
-            <input name='$index' type='$type' class='$bg' value='". $array[$index] ."' $readonly>
+            <input name='$index' type='$type' class='$bg' value='". $array[$index] ."' autocomplete='off' $readonly>
         </div>
         ";
         return true;
