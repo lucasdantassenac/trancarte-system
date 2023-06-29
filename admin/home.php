@@ -86,7 +86,7 @@ include_once '../includes/functions.php';
                         <a href='./consultarArquiteto.php' class='btn seeMore'>Ver todos</a>
                     </div>
                     <div class='col c50'>
-                        <h3>Ultimos vendedores adicionados</h3>
+                        <h3>Últimos vendedores adicionados</h3>
                         <table> 
                             <tbody>
                                 <?php foreach ($selecionaVendedor as $index => $vendedor) {?>
