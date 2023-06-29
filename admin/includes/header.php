@@ -23,6 +23,9 @@
             <span class="burger-line"> </span>
             <span class="burger-line"> </span>
         </div>
+        <div class='logo_div_mobile'>
+            <a href='<?php echo $url;?>'><img id='header_logo' src='<?php echo $url;?>img/logo-trancarte-branca.png' alt='logo da trançarte'></a>
+        </div>
     </div>
        <div id='headerLimiter' class='headerHidden limiter'>
         <div class='logo_div'>

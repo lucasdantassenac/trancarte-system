@@ -203,17 +203,29 @@ footer li{
     border: 1px solid #ddd; /* Add a grey border */
     margin-bottom: 12px; /* Add some space below the input */
   }
-  .burger{
+  .burger, .mobile-limiter{
     display:none;
     visibility:hidden;
   }
+  
 
   /*RESPONSIVITY*/
   @media(max-width: 940px){
+    header{
+        height:85px;
+    }
     .mobile-limiter{
         max-width:1280px;
         width:100%;
         padding:0 1em;
+        display:flex;
+        align-items:center;
+
+        visibility:visible;
+    } 
+    .logo_div{
+        display:none;
+        visibility:hidden;
     }
     .burger{
         width:25px;
@@ -223,7 +235,7 @@ footer li{
         cursor:pointer;
         z-index:6;
         height:25px;
-
+        margin-right:15px;
     }
     .burger-line{
         height:25px;
@@ -236,14 +248,14 @@ footer li{
         flex-direction:column;
         align-items:flex-start;
     }
-    
+   
     header .limiter{
         position:fixed;
         z-index:5;
         height:100%;
         padding:10px 20px 15px;
         align-items:flex-start;
-        top:50px;
+        top:85px;
         background-color:var(--primary);
     }
     .logo_div, .nav-links, .nav-div{
@@ -257,6 +269,7 @@ footer li{
     }
     .headerFixed{
         position:fixed;
+        z-index:10;
     }
    .addBtnSection{
         justify-content:space-around;
